@@ -559,6 +559,26 @@
             font-size: 1rem;
         }
 
+        /* PRODUCT COMMENTS */
+        .product-comments {
+            grid-column: 1 / -1;
+            border-top: 1px solid var(--dark-beige);
+            padding-top: 22px;
+            margin-top: 5px;
+        }
+        .comment-form { display: grid; gap: 10px; margin: 15px 0 22px; }
+        .comment-form input, .comment-form textarea {
+            width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px;
+            font: inherit; font-size: .95rem;
+        }
+        .comment-list { display: grid; gap: 12px; }
+        .comment-card { background: var(--beige); padding: 14px; border-radius: 6px; }
+        .comment-meta { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; color:#666; font-size:.8rem; margin-bottom:6px; }
+        .comment-text { white-space:pre-wrap; overflow-wrap:anywhere; }
+        .admin-reply { margin:10px 0 0 14px; padding:10px; border-left:3px solid var(--gold); background:#fff; }
+        .admin-comment-card { background:#fff; border:1px solid #ddd; border-radius:6px; padding:14px; margin:10px 0; }
+        .admin-comment-card textarea { width:100%; padding:9px; margin:8px 0; border:1px solid #ccc; border-radius:4px; }
+
         .cart-modal-body {
             padding: 30px;
             overflow-x: auto;
@@ -1126,6 +1146,16 @@
                         <button class="btn btn-whatsapp" onclick="window.directWhatsAppOrderFromModal()"><i class="fa-brands fa-whatsapp"></i> <span data-translate="btnOrderWhatsappNow">ORDER VIA WHATSAPP NOW</span></button>
                     </div>
                 </div>
+                <section class="product-comments">
+                    <h3 style="color:var(--dark-brown);">Maoni ya Wateja / Customer Reviews</h3>
+                    <p style="color:#666;font-size:.9rem;">Toa maoni au uliza swali kuhusu bidhaa hii.</p>
+                    <form class="comment-form" id="productCommentForm" onsubmit="window.submitProductComment(event)">
+                        <input type="text" id="commentCustomerName" maxlength="80" required placeholder="Jina lako / Your name">
+                        <textarea id="commentCustomerText" rows="3" maxlength="1000" required placeholder="Andika maoni yako hapa..."></textarea>
+                        <button type="submit" class="btn btn-gold">TUMA MAONI</button>
+                    </form>
+                    <div id="productCommentsList" class="comment-list"><p style="color:#777;">Inapakia maoni...</p></div>
+                </section>
             </div>
         </div>
     </div>
@@ -1280,8 +1310,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Size Zilizopo (Zitenganishe kwa koma) *</label>
-                            <input type="text" id="adminProdSizes" required placeholder="39, 40, 41, 42, 43, 44">
+                            <label>Size Zilizopo (Mfano 24-44 au 21-45, au 39, 40, 41) *</label>
+                            <input type="text" id="adminProdSizes" required placeholder="24-44">
+                            <small style="color:#666;">Andika mwanzo-mwisho (mfano 21-45); mfumo utatengeneza namba zote. Unaweza pia kutenganisha size kwa koma.</small>
                         </div>
 
                         <div class="form-group">
@@ -1318,6 +1349,13 @@
                                 <!-- Dynamic Injection -->
                             </tbody>
                         </table>
+                    </div>
+
+                    <!-- CUSTOMER COMMENTS MANAGEMENT -->
+                    <div style="background:var(--beige); padding:18px; border-radius:6px; margin-top:30px; border:1px solid var(--gold);">
+                        <h3 style="color:var(--dark-brown); margin-bottom:12px;">MAONI YA WATEJA (JIBU AU FUTA)</h3>
+                        <p style="font-size:.88rem;color:#666;margin-bottom:12px;">Admin anaweza kujibu maoni ya mteja au kuyafuta.</p>
+                        <div id="adminCommentsList">Inapakia maoni...</div>
                     </div>
                 </div>
             </div>
@@ -1422,6 +1460,8 @@
             "https://images.unsplash.com/photo-1560343090-f0409e92791a?auto=format&fit=crop&q=80&w=600"
         ];
         let galleryImages = [];
+        let productComments = [];
+        let isAdminLoggedIn = false;
 
         let currentLang = localStorage.getItem('asd_lang') || 'sw';
 
@@ -1777,6 +1817,200 @@
             renderProducts();
         }
 
+        // Convert admin size input such as "24-44" into every available size.
+        // Comma-separated sizes (e.g. "39, 40, 41") remain supported.
+        function parseAvailableSizes(value) {
+            const input = String(value || "").trim();
+            const rangeMatch = input.match(/^(\\d+)\\s*[-–]\\s*(\\d+)$/);
+            if (rangeMatch) {
+                const start = Number(rangeMatch[1]);
+                const end = Number(rangeMatch[2]);
+                if (end < start) throw new Error("Size ya mwisho lazima iwe kubwa au sawa na size ya mwanzo.");
+                if (end - start > 100) throw new Error("Range ya size ni kubwa mno. Tafadhali hakiki.");
+                return Array.from({ length: end - start + 1 }, (_, i) => String(start + i));
+            }
+            const sizes = input.split(",").map(v => v.trim()).filter(Boolean);
+            if (!sizes.length) throw new Error("Weka size zinazopatikana, mfano 24-44.");
+            return [...new Set(sizes)];
+        }
+
+        function safeText(value) {
+            return String(value ?? "");
+        }
+
+        async function loadProductComments(productId) {
+            const list = document.getElementById("productCommentsList");
+            if (!list) return;
+            list.textContent = "Inapakia maoni...";
+            try {
+                const snap = await getDocs(collection(db, "productComments"));
+                const comments = [];
+                snap.forEach(d => {
+                    const data = d.data();
+                    if (data.productId === productId) comments.push({ id: d.id, ...data });
+                });
+                comments.sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+                productComments = comments;
+                renderProductComments(comments);
+            } catch (error) {
+                console.error("Error loading product comments:", error);
+                list.textContent = "Imeshindikana kupakia maoni. Jaribu tena baadaye.";
+            }
+        }
+
+        function renderProductComments(comments) {
+            const list = document.getElementById("productCommentsList");
+            if (!list) return;
+            list.replaceChildren();
+            if (!comments.length) {
+                const empty = document.createElement("p");
+                empty.style.color = "#777";
+                empty.textContent = "Bado hakuna maoni. Kuwa wa kwanza kutoa maoni!";
+                list.appendChild(empty);
+                return;
+            }
+            comments.forEach(comment => {
+                const card = document.createElement("article");
+                card.className = "comment-card";
+                const meta = document.createElement("div");
+                meta.className = "comment-meta";
+                const author = document.createElement("strong");
+                author.textContent = safeText(comment.name || "Mteja");
+                const date = document.createElement("span");
+                date.textContent = comment.createdAt ? new Date(comment.createdAt).toLocaleString() : "";
+                meta.append(author, date);
+                const body = document.createElement("p");
+                body.className = "comment-text";
+                body.textContent = safeText(comment.comment);
+                card.append(meta, body);
+                if (comment.reply) {
+                    const reply = document.createElement("div");
+                    reply.className = "admin-reply";
+                    const label = document.createElement("strong");
+                    label.textContent = "Jibu la African Shoes Design:";
+                    const replyText = document.createElement("p");
+                    replyText.className = "comment-text";
+                    replyText.textContent = safeText(comment.reply);
+                    reply.append(label, replyText);
+                    card.appendChild(reply);
+                }
+                list.appendChild(card);
+            });
+        }
+
+        window.submitProductComment = async function(event) {
+            event.preventDefault();
+            if (!currentModalProduct) return;
+            const name = document.getElementById("commentCustomerName").value.trim();
+            const comment = document.getElementById("commentCustomerText").value.trim();
+            if (!name || !comment) return alert("Tafadhali jaza jina na maoni yako.");
+            try {
+                await addDoc(collection(db, "productComments"), {
+                    productId: currentModalProduct.firestoreId,
+                    productTitle: currentModalProduct.title,
+                    name,
+                    comment,
+                    reply: "",
+                    createdAt: new Date().toISOString()
+                });
+                document.getElementById("productCommentForm").reset();
+                await loadProductComments(currentModalProduct.firestoreId);
+                alert("Asante! Maoni yako yamepokelewa.");
+            } catch (error) {
+                console.error("Error submitting comment:", error);
+                alert("Imeshindikana kutuma maoni. Hakikisha Firestore rules zinaruhusu kuongeza maoni.");
+            }
+        };
+
+        async function loadAdminComments() {
+            const container = document.getElementById("adminCommentsList");
+            if (!container || !isAdminLoggedIn) return;
+            container.textContent = "Inapakia maoni...";
+            try {
+                const snap = await getDocs(collection(db, "productComments"));
+                const comments = [];
+                snap.forEach(d => comments.push({ id: d.id, ...d.data() }));
+                comments.sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+                renderAdminComments(comments);
+            } catch (error) {
+                console.error("Error loading admin comments:", error);
+                container.textContent = "Imeshindikana kupakia maoni.";
+            }
+        }
+
+        function renderAdminComments(comments) {
+            const container = document.getElementById("adminCommentsList");
+            if (!container) return;
+            container.replaceChildren();
+            if (!comments.length) {
+                container.textContent = "Bado hakuna maoni ya wateja.";
+                return;
+            }
+            comments.forEach(comment => {
+                const card = document.createElement("div");
+                card.className = "admin-comment-card";
+                const title = document.createElement("strong");
+                title.textContent = `${comment.productTitle || "Bidhaa"} — ${comment.name || "Mteja"}`;
+                const body = document.createElement("p");
+                body.className = "comment-text";
+                body.style.marginTop = "6px";
+                body.textContent = safeText(comment.comment);
+                const reply = document.createElement("textarea");
+                reply.rows = 2;
+                reply.maxLength = 1000;
+                reply.placeholder = "Andika jibu la admin...";
+                reply.value = comment.reply || "";
+                const actions = document.createElement("div");
+                actions.style.cssText = "display:flex;gap:10px;flex-wrap:wrap;";
+                const save = document.createElement("button");
+                save.className = "btn btn-gold";
+                save.type = "button";
+                save.textContent = "HIFADHI JIBU";
+                save.addEventListener("click", () => window.replyToComment(comment.id, reply.value));
+                const remove = document.createElement("button");
+                remove.className = "btn btn-outline";
+                remove.type = "button";
+                remove.textContent = "FUTA MAONI";
+                remove.style.cssText = "border-color:red;color:red;";
+                remove.addEventListener("click", () => window.deleteComment(comment.id));
+                actions.append(save, remove);
+                card.append(title, body, reply, actions);
+                container.appendChild(card);
+            });
+        }
+
+        window.replyToComment = async function(commentId, replyText) {
+            if (!isAdminLoggedIn) return alert("Admin pekee ndiye anayeruhusiwa.");
+            const reply = String(replyText || "").trim();
+            if (!reply) return alert("Andika jibu kabla ya kuhifadhi.");
+            try {
+                await updateDoc(doc(db, "productComments", commentId), {
+                    reply,
+                    repliedAt: new Date().toISOString()
+                });
+                await loadAdminComments();
+                if (currentModalProduct) await loadProductComments(currentModalProduct.firestoreId);
+                alert("Jibu limehifadhiwa.");
+            } catch (error) {
+                console.error("Error replying to comment:", error);
+                alert("Imeshindikana kuhifadhi jibu.");
+            }
+        };
+
+        window.deleteComment = async function(commentId) {
+            if (!isAdminLoggedIn) return alert("Admin pekee ndiye anayeruhusiwa.");
+            if (!confirm("Una uhakika unataka kufuta maoni haya?")) return;
+            try {
+                await deleteDoc(doc(db, "productComments", commentId));
+                await loadAdminComments();
+                if (currentModalProduct) await loadProductComments(currentModalProduct.firestoreId);
+                alert("Maoni yamefutwa.");
+            } catch (error) {
+                console.error("Error deleting comment:", error);
+                alert("Imeshindikana kufuta maoni.");
+            }
+        };
+
         window.openProductModal = function(firestoreId) {
             const product = products.find(p => p.firestoreId === firestoreId);
             if (!product) return;
@@ -1789,9 +2023,13 @@
 
             const sizeSelect = document.getElementById('modalSize');
             sizeSelect.innerHTML = '';
-            product.sizes.forEach(sz => {
+            // Supports both saved arrays and legacy "start-end" values.
+            const availableSizes = Array.isArray(product.sizes)
+                ? product.sizes
+                : parseAvailableSizes(product.sizes);
+            availableSizes.forEach(sz => {
                 const opt = document.createElement('option');
-                opt.value = sz;
+                opt.value = String(sz);
                 opt.innerText = `Size ${sz}`;
                 sizeSelect.appendChild(opt);
             });
@@ -1806,6 +2044,7 @@
             });
 
             document.getElementById('productModal').style.display = 'block';
+            loadProductComments(product.firestoreId);
         }
 
         window.addToCartFromModal = function() {
@@ -1987,16 +2226,19 @@
             const pass = document.getElementById('adminPass').value.trim();
 
             if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+                isAdminLoggedIn = true;
                 document.getElementById('adminLoginView').style.display = 'none';
                 document.getElementById('adminDashboardView').style.display = 'block';
                 renderAdminProductsTable();
                 renderAdminGalleryList();
+                loadAdminComments();
             } else {
                 alert("Email au Password siyo sahihi! Tafadhali jaribu tena.");
             }
         }
 
         window.adminLogout = function() {
+            isAdminLoggedIn = false;
             document.getElementById('adminDashboardView').style.display = 'none';
             document.getElementById('adminLoginView').style.display = 'block';
             document.getElementById('adminEmail').value = '';
@@ -2066,8 +2308,18 @@
             const colorsStr = document.getElementById('adminProdColors').value;
             const desc = document.getElementById('adminProdDesc').value;
 
-            const sizes = sizesStr.split(',').map(s => s.trim()).filter(s => s);
+            let sizes;
+            try {
+                sizes = parseAvailableSizes(sizesStr);
+            } catch (sizeError) {
+                alert(sizeError.message);
+                return;
+            }
             const colors = colorsStr.split(',').map(c => c.trim()).filter(c => c);
+            if (!colors.length) {
+                alert("Tafadhali weka angalau rangi moja.");
+                return;
+            }
 
             const productData = { title, price, category, image, sizes, colors, desc };
 
@@ -2114,7 +2366,7 @@
             document.getElementById('adminProdImgUrl').value = product.image.startsWith('data:') ? '' : product.image;
             uploadedBase64Image = product.image.startsWith('data:') ? product.image : '';
 
-            document.getElementById('adminProdSizes').value = product.sizes.join(', ');
+            document.getElementById('adminProdSizes').value = Array.isArray(product.sizes) ? product.sizes.join(', ') : String(product.sizes || '');
             document.getElementById('adminProdColors').value = product.colors.join(', ');
             document.getElementById('adminProdDesc').value = product.desc;
         }
