@@ -391,7 +391,6 @@
             transform: translateY(-5px);
         }
 
-        /* FREE SIZE PRODUCT IMAGE BOX - FULLY VISIBLE WITHOUT CROPPING */
         .product-img-box {
             position: relative;
             height: 280px;
@@ -681,7 +680,6 @@
             margin: 30px auto;
         }
 
-        /* FREE SIZE INSTAGRAM / GALLERY POSTS - NO CROPPING */
         .insta-post {
             position: relative;
             min-height: 240px;
@@ -1017,14 +1015,14 @@
         </div>
     </section>
 
-    <!-- INSTAGRAM / GALLERY SECTION (DYNAMICALLY MANAGED BY ADMIN) -->
+    <!-- INSTAGRAM / GALLERY SECTION (MANAGED VIA FIRESTORE DATABASE) -->
     <section class="insta-section" id="instagram">
         <div class="section-title">
             <h2 data-translate="galleryHeading">FOLLOW OUR STYLE ON INSTAGRAM</h2>
             <p>@africanshoes_</p>
         </div>
         <div class="insta-grid" id="adminGalleryGrid">
-            <!-- Dynamic Injection from Admin -->
+            <!-- Dynamic Injection from Database -->
         </div>
         <div style="margin-top: 30px;">
             <a href="https://www.instagram.com/africanshoes_/" target="_blank" class="btn btn-gold"><i class="fa-brands fa-instagram"></i> <span data-translate="btnFollowInsta">FOLLOW US ON INSTAGRAM</span></a>
@@ -1224,7 +1222,7 @@
                         </div>
                     </div>
 
-                    <!-- ADMIN GALLERY / INSTAGRAM MANAGER -->
+                    <!-- ADMIN GALLERY / INSTAGRAM MANAGER (FIRESTORE SYNC) -->
                     <div style="background: var(--beige); padding: 15px; border-radius: 6px; margin-bottom: 25px; border: 1px solid var(--gold);">
                         <h4 style="color: var(--dark-brown); margin-bottom: 10px;"><i class="fa-solid fa-images"></i> ONGEZA PICHA KWENYE GALARIA / INSTAGRAM YA CHINI</h4>
                         <div style="display: grid; gap: 10px; margin-bottom: 10px;">
@@ -1238,7 +1236,7 @@
                             </div>
                         </div>
                         <div style="margin-top: 10px;">
-                            <h5 style="margin-bottom: 5px;">Picha Zilizopo Kwenye Galaria:</h5>
+                            <h5 style="margin-bottom: 5px;">Picha Zilizopo Kwenye Galaria (Database):</h5>
                             <div id="adminGalleryList" style="display: flex; flex-wrap: wrap; gap: 10px; max-height: 150px; overflow-y: auto; background: white; padding: 10px; border-radius: 4px;"></div>
                         </div>
                     </div>
@@ -1423,7 +1421,7 @@
             "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&q=80&w=600",
             "https://images.unsplash.com/photo-1560343090-f0409e92791a?auto=format&fit=crop&q=80&w=600"
         ];
-        let galleryImages = JSON.parse(localStorage.getItem('asd_gallery')) || DEFAULT_GALLERY;
+        let galleryImages = [];
 
         let currentLang = localStorage.getItem('asd_lang') || 'sw';
 
@@ -1558,8 +1556,10 @@
         const ADMIN_EMAIL = "eprazil@gmail.com";
         const ADMIN_PASS = "1995";
 
-        async function fetchProducts() {
+        // Fetch Products & Gallery from Firebase Firestore
+        async function fetchData() {
             try {
+                // Fetch Products
                 const querySnapshot = await getDocs(collection(db, "products"));
                 products = [];
                 querySnapshot.forEach((docSnap) => {
@@ -1579,13 +1579,32 @@
                             desc: p.desc
                         });
                     }
-                    return fetchProducts();
+                    return fetchData();
                 }
 
                 renderProducts();
                 renderAdminProductsTable();
+
+                // Fetch Gallery Images from Firestore Collection "gallery"
+                const gallerySnapshot = await getDocs(collection(db, "gallery"));
+                galleryImages = [];
+                gallerySnapshot.forEach((docSnap) => {
+                    galleryImages.push({ firestoreId: docSnap.id, ...docSnap.data() });
+                });
+
+                // If gallery is empty in Firestore, seed default gallery
+                if (galleryImages.length === 0) {
+                    for (let imgUrl of DEFAULT_GALLERY) {
+                        await addDoc(collection(db, "gallery"), { imageUrl: imgUrl });
+                    }
+                    return fetchData();
+                }
+
+                renderGallery();
+                renderAdminGalleryList();
+
             } catch (error) {
-                console.error("Error fetching products: ", error);
+                console.error("Error fetching data: ", error);
             }
         }
 
@@ -1632,11 +1651,11 @@
             const container = document.getElementById('adminGalleryGrid');
             container.innerHTML = '';
 
-            galleryImages.forEach((imgUrl, index) => {
+            galleryImages.forEach((item, index) => {
                 const post = document.createElement('div');
                 post.className = 'insta-post';
                 post.innerHTML = `
-                    <img src="${imgUrl}" alt="Gallery Image ${index + 1}">
+                    <img src="${item.imageUrl}" alt="Gallery Image ${index + 1}">
                     <a href="https://www.instagram.com/africanshoes_/" target="_blank" class="insta-overlay"><i class="fa-brands fa-instagram"></i></a>
                 `;
                 container.appendChild(post);
@@ -1648,15 +1667,15 @@
             if (!listContainer) return;
             listContainer.innerHTML = '';
 
-            galleryImages.forEach((imgUrl, index) => {
-                const item = document.createElement('div');
-                item.style.cssText = "display: flex; align-items: center; gap: 10px; border: 1px solid #ddd; padding: 5px; border-radius: 4px;";
-                item.innerHTML = `
-                    <img src="${imgUrl}" style="width: 40px; height: 40px; object-fit: contain; background: #eee;">
-                    <span style="font-size: 0.8rem; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${imgUrl}</span>
-                    <button onclick="window.removeGalleryImage(${index})" style="background: red; color: white; border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer;"><i class="fa-solid fa-trash"></i></button>
+            galleryImages.forEach((item, index) => {
+                const row = document.createElement('div');
+                row.style.cssText = "display: flex; align-items: center; gap: 10px; border: 1px solid #ddd; padding: 5px; border-radius: 4px; background: white;";
+                row.innerHTML = `
+                    <img src="${item.imageUrl}" style="width: 40px; height: 40px; object-fit: contain; background: #eee;">
+                    <span style="font-size: 0.8rem; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.imageUrl}</span>
+                    <button onclick="window.removeGalleryImage('${item.firestoreId}')" style="background: red; color: white; border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer;"><i class="fa-solid fa-trash"></i></button>
                 `;
-                listContainer.appendChild(item);
+                listContainer.appendChild(row);
             });
         }
 
@@ -1671,55 +1690,65 @@
             }
         }
 
-        window.addGalleryImageFromFile = function() {
-            if (galleryUploadedBase64Image) {
-                galleryImages.push(galleryUploadedBase64Image);
-                localStorage.setItem('asd_gallery', JSON.stringify(galleryImages));
-                document.getElementById('galleryUploadFile').value = '';
-                galleryUploadedBase64Image = "";
-                renderGallery();
-                renderAdminGalleryList();
-                alert("Picha imepakiwa na kuongezwa kwenye galaria!");
-            } else {
-                const fileInput = document.getElementById('galleryUploadFile');
-                if (fileInput.files && fileInput.files[0]) {
+        window.addGalleryImageFromFile = async function() {
+            let imgToSave = galleryUploadedBase64Image;
+            const fileInput = document.getElementById('galleryUploadFile');
+
+            if (!imgToSave && fileInput.files && fileInput.files[0]) {
+                await new Promise((resolve) => {
                     const reader = new FileReader();
                     reader.onload = function(e) {
-                        galleryImages.push(e.target.result);
-                        localStorage.setItem('asd_gallery', JSON.stringify(galleryImages));
-                        fileInput.value = '';
-                        renderGallery();
-                        renderAdminGalleryList();
-                        alert("Picha imepakiwa na kuongezwa kwenye galaria!");
+                        imgToSave = e.target.result;
+                        resolve();
                     };
                     reader.readAsDataURL(fileInput.files[0]);
-                } else {
-                    alert("Tafadhali chagua picha kwanza.");
+                });
+            }
+
+            if (imgToSave) {
+                try {
+                    await addDoc(collection(db, "gallery"), { imageUrl: imgToSave });
+                    fileInput.value = '';
+                    galleryUploadedBase64Image = "";
+                    alert("Picha imehifadhiwa kwenye database kikamilifu!");
+                    fetchData();
+                } catch (err) {
+                    console.error("Error adding gallery image:", err);
+                    alert("Imeshindikana kuhifadhi picha.");
                 }
+            } else {
+                alert("Tafadhali chagua picha kwanza.");
             }
         }
 
-        window.addGalleryImageFromURL = function() {
+        window.addGalleryImageFromURL = async function() {
             const urlInput = document.getElementById('galleryUrlInput');
             const url = urlInput.value.trim();
             if (url) {
-                galleryImages.push(url);
-                localStorage.setItem('asd_gallery', JSON.stringify(galleryImages));
-                urlInput.value = '';
-                renderGallery();
-                renderAdminGalleryList();
-                alert("Picha imeongezwa kwenye galaria kikamilifu!");
+                try {
+                    await addDoc(collection(db, "gallery"), { imageUrl: url });
+                    urlInput.value = '';
+                    alert("Picha imeongezwa kwenye database kikamilifu!");
+                    fetchData();
+                } catch (err) {
+                    console.error("Error adding gallery URL:", err);
+                    alert("Imeshindikana kuhifadhi URL.");
+                }
             } else {
                 alert("Tafadhali weka link sahihi ya picha.");
             }
         }
 
-        window.removeGalleryImage = function(index) {
+        window.removeGalleryImage = async function(firestoreId) {
             if (confirm("Una uhakika unataka kufuta picha hii kwenye galaria?")) {
-                galleryImages.splice(index, 1);
-                localStorage.setItem('asd_gallery', JSON.stringify(galleryImages));
-                renderGallery();
-                renderAdminGalleryList();
+                try {
+                    await deleteDoc(doc(db, "gallery", firestoreId));
+                    alert("Picha imefutwa kwenye database!");
+                    fetchData();
+                } catch (err) {
+                    console.error("Error deleting gallery image:", err);
+                    alert("Imeshindikana kufuta picha.");
+                }
             }
         }
 
@@ -2055,7 +2084,7 @@
                 }
 
                 resetAdminForm();
-                fetchProducts();
+                fetchData();
             } catch (error) {
                 console.error("Error saving product: ", error);
                 alert("Hitilafu imetokea wakati wa kuhifadhi.");
@@ -2094,7 +2123,7 @@
             if (confirm("Je, una uhakika unataka kufuta bidhaa hii kikamilifu?")) {
                 try {
                     await deleteDoc(doc(db, "products", firestoreId));
-                    fetchProducts();
+                    fetchData();
                     alert("Bidhaa imefutwa!");
                 } catch (error) {
                     console.error("Error deleting product: ", error);
@@ -2148,8 +2177,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             applyLanguage(currentLang);
             renderLogo();
-            fetchProducts();
-            renderGallery();
+            fetchData();
             updateCartBadge();
         });
     </script>
