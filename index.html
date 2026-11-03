@@ -433,7 +433,7 @@
             justify-content: center;
         }
 
-        /* MODAL (PRODUCT DETAILS, CART, CHECKOUT, ADMIN) */
+        /* MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -472,7 +472,6 @@
             z-index: 10;
         }
 
-        /* PRODUCT DETAIL MODAL INTERNAL */
         .product-detail-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -518,7 +517,6 @@
             border-radius: 4px;
         }
 
-        /* SHOPPING CART & CHECKOUT */
         .cart-modal-body {
             padding: 30px;
         }
@@ -578,7 +576,6 @@
             border-radius: 4px;
         }
 
-        /* DELIVERY & GOOGLE MAPS SECTION */
         .location-section {
             background-color: var(--beige);
         }
@@ -625,7 +622,6 @@
             margin-top: 4px;
         }
 
-        /* INSTAGRAM FEED SECTION */
         .insta-section {
             text-align: center;
         }
@@ -671,7 +667,6 @@
             opacity: 1;
         }
 
-        /* ABOUT US */
         .about-section {
             max-width: 1000px;
             margin: 0 auto;
@@ -685,7 +680,6 @@
             margin-bottom: 20px;
         }
 
-        /* FOOTER */
         footer {
             background-color: var(--black);
             color: var(--cream);
@@ -739,7 +733,6 @@
             color: #888;
         }
 
-        /* FLOATING WHATSAPP BUTTON */
         .floating-whatsapp {
             position: fixed;
             bottom: 30px;
@@ -762,7 +755,6 @@
             transform: scale(1.1);
         }
 
-        /* RESPONSIVE DESIGN */
         @media (max-width: 900px) {
             .location-grid, .product-detail-grid {
                 grid-template-columns: 1fr;
@@ -820,7 +812,7 @@
                 <li><a href="#about" class="nav-link">Kuhusu Sisi</a></li>
                 <li><a href="#location" class="nav-link">Location</a></li>
                 <li><a href="#contact" class="nav-link">Wasiliana Nasi</a></li>
-                <li><a onclick="openAdminModal()" class="nav-link" style="color: var(--gold);"><i class="fa-solid fa-lock"></i> Admin Portal</a></li>
+                <li><a onclick="openAdminModal()" class="nav-link" style="color: var(--gold); cursor: pointer;"><i class="fa-solid fa-lock"></i> Admin Portal</a></li>
             </ul>
 
             <div class="nav-icons">
@@ -1074,8 +1066,8 @@
                     </div>
 
                     <div style="display: flex; gap: 10px; flex-direction: column;">
-                        <button class="btn btn-gold" onclick="addToCartFromModal()"><i class="fa-solid fa-cart-plus"></i> ADD TO CART</button>
-                        <button class="btn btn-whatsapp" onclick="directWhatsAppOrderFromModal()"><i class="fa-brands fa-whatsapp"></i> ORDER VIA WHATSAPP NOW</button>
+                        <button class="btn btn-gold" onclick="window.addToCartFromModal()"><i class="fa-solid fa-cart-plus"></i> ADD TO CART</button>
+                        <button class="btn btn-whatsapp" onclick="window.directWhatsAppOrderFromModal()"><i class="fa-brands fa-whatsapp"></i> ORDER VIA WHATSAPP NOW</button>
                     </div>
                 </div>
             </div>
@@ -1098,7 +1090,7 @@
                 <hr style="margin: 25px 0;">
 
                 <h3 style="color: var(--dark-brown); margin-bottom: 10px;">TAARIFA ZA MTEJA ZA KUTUMA ODA</h3>
-                <form id="checkoutForm" class="checkout-form" onsubmit="handleCheckout(event)">
+                <form id="checkoutForm" class="checkout-form" onsubmit="window.handleCheckout(event)">
                     <div class="form-group">
                         <label>Jina Yako Kamili *</label>
                         <input type="text" id="custName" required placeholder="Mfano: John Doe">
@@ -1109,7 +1101,7 @@
                     </div>
                     <div class="form-group">
                         <label>Njia ya Kupokea Oda *</label>
-                        <select id="deliveryOption" onchange="toggleDeliveryField()">
+                        <select id="deliveryOption" onchange="window.toggleDeliveryField()">
                             <option value="DELIVERY">DELIVERY - Nataka niletewe/Nisafirishiewe bidhaa</option>
                             <option value="PICK UP">PICK UP - Nitakuja kuchukua dukani (Sophia House)</option>
                         </select>
@@ -1144,7 +1136,7 @@
                 <!-- Admin Auth View -->
                 <div id="adminLoginView">
                     <h2 style="color: var(--dark-brown); text-align: center; margin-bottom: 20px;">ADMIN LOGIN PORTAL</h2>
-                    <form onsubmit="handleAdminLogin(event)" style="max-width: 400px; margin: 0 auto; display: grid; gap: 15px;">
+                    <form onsubmit="window.handleAdminLogin(event)" style="max-width: 400px; margin: 0 auto; display: grid; gap: 15px;">
                         <div class="form-group">
                             <label>Admin Username / Email</label>
                             <input type="email" id="adminEmail" required placeholder="Weka Email ya Admin">
@@ -1157,11 +1149,11 @@
                     </form>
                 </div>
 
-                <!-- Admin Main Dashboard (Hidden by default) -->
+                <!-- Admin Main Dashboard -->
                 <div id="adminDashboardView" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid var(--gold); padding-bottom: 10px;">
                         <h2>ADMIN MANAGEMENT DASHBOARD</h2>
-                        <button onclick="adminLogout()" class="btn btn-outline" style="padding: 5px 15px; font-size: 0.8rem;">Logout</button>
+                        <button onclick="window.adminLogout()" class="btn btn-outline" style="padding: 5px 15px; font-size: 0.8rem;">Logout</button>
                     </div>
 
                     <!-- UPLOAD OFFICE LOGO SECTION -->
@@ -1169,14 +1161,14 @@
                         <h4 style="color: var(--dark-brown); margin-bottom: 10px;"><i class="fa-solid fa-image"></i> BAKULISHA LOGO YA OFISI (HEADER & FOOTER)</h4>
                         <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
                             <input type="file" id="officeLogoFile" accept="image/*">
-                            <button onclick="uploadOfficeLogo()" class="btn btn-gold" style="padding: 8px 15px; font-size: 0.85rem;">PAKAZA LOGO</button>
-                            <button onclick="resetOfficeLogo()" class="btn btn-outline" style="padding: 8px 15px; font-size: 0.85rem; border-color: red; color: red;">RUDISHA TEXT LOGO</button>
+                            <button onclick="window.uploadOfficeLogo()" class="btn btn-gold" style="padding: 8px 15px; font-size: 0.85rem;">PAKAZA LOGO</button>
+                            <button onclick="window.resetOfficeLogo()" class="btn btn-outline" style="padding: 8px 15px; font-size: 0.85rem; border-color: red; color: red;">RUDISHA TEXT LOGO</button>
                         </div>
                     </div>
 
                     <!-- Add / Edit Product Form -->
                     <h3 style="color: var(--dark-brown); margin-bottom: 15px;" id="adminFormTitle">Ongeza Bidhaa Mpya</h3>
-                    <form id="adminProductForm" onsubmit="saveProduct(event)" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px;">
+                    <form id="adminProductForm" onsubmit="window.saveProduct(event)" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px;">
                         <input type="hidden" id="adminProdId">
                         
                         <div class="form-group" style="grid-column: span 2;">
@@ -1191,7 +1183,7 @@
 
                         <div class="form-group">
                             <label>Aina ya Kiatu (Category) *</label>
-                            <select id="adminProdCategorySelect" onchange="toggleCustomCategoryInput()">
+                            <select id="adminProdCategorySelect" onchange="window.toggleCustomCategoryInput()">
                                 <option value="Men Formal">Men's Formal Leather</option>
                                 <option value="Men Casual">Men's Casual Leather</option>
                                 <option value="Loafers">Leather Loafers</option>
@@ -1206,7 +1198,7 @@
                         <div class="form-group" style="grid-column: span 2;">
                             <label>Picha ya Kiatu (JPG/PNG Upload au Image URL) *</label>
                             <div style="display: flex; gap: 10px; align-items: center;">
-                                <input type="file" id="adminProdImageFile" accept="image/*" onchange="handleImageFileUpload(event)" style="flex: 1;">
+                                <input type="file" id="adminProdImageFile" accept="image/*" onchange="window.handleImageFileUpload(event)" style="flex: 1;">
                                 <span style="font-weight: bold; font-size: 0.85rem;">AU URL:</span>
                                 <input type="url" id="adminProdImgUrl" placeholder="https://..." style="flex: 1;">
                             </div>
@@ -1229,7 +1221,7 @@
 
                         <div style="grid-column: span 2; display: flex; gap: 10px;">
                             <button type="submit" class="btn btn-gold" style="flex: 1;"><i class="fa-solid fa-save"></i> HIFADHI BIDHAA</button>
-                            <button type="button" onclick="resetAdminForm()" class="btn btn-outline" style="flex: 1;">FUTA FORM</button>
+                            <button type="button" onclick="window.resetAdminForm()" class="btn btn-outline" style="flex: 1;">FUTA FORM</button>
                         </div>
                     </form>
 
@@ -1257,10 +1249,11 @@
         </div>
     </div>
 
-    <!-- FIREBASE SDK CONFIGURATION -->
+    <!-- FIREBASE & APP LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-analytics.js";
+        import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyD_QSYogidL5B-qr9nCKy_Tuh4EktYR0Mk",
@@ -1272,14 +1265,10 @@
             measurementId: "G-K6YMN2MD65"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
-    </script>
+        const db = getFirestore(app);
 
-    <!-- JAVASCRIPT APP LOGIC -->
-    <script>
-        // --- INITIAL DATA & STORAGE LOGIC ---
         const DEFAULT_PRODUCTS = [
             {
                 id: 1,
@@ -1343,30 +1332,54 @@
             }
         ];
 
-        // Global State Variables
-        let products = JSON.parse(localStorage.getItem('asd_products')) || DEFAULT_PRODUCTS;
+        let products = [];
         let cart = JSON.parse(localStorage.getItem('asd_cart')) || [];
         let activeFilter = 'all';
         let currentModalProduct = null;
         let uploadedBase64Image = "";
         let officeLogoDataUrl = localStorage.getItem('asd_office_logo') || "";
 
-        // SECURE ADMIN CREDENTIALS
         const ADMIN_EMAIL = "eprazil@gmail.com";
         const ADMIN_PASS = "1995";
 
-        // Save products state
-        function saveProductsToStorage() {
-            localStorage.setItem('asd_products', JSON.stringify(products));
+        // Fetch Products from Firestore
+        async function fetchProducts() {
+            try {
+                const querySnapshot = await getDocs(collection(db, "products"));
+                products = [];
+                querySnapshot.forEach((docSnap) => {
+                    products.push({ firestoreId: docSnap.id, ...docSnap.data() });
+                });
+
+                // If Firestore is empty, seed default products
+                if (products.length === 0) {
+                    for (let p of DEFAULT_PRODUCTS) {
+                        await addDoc(collection(db, "products"), {
+                            id: p.id,
+                            title: p.title,
+                            price: p.price,
+                            category: p.category,
+                            image: p.image,
+                            sizes: p.sizes,
+                            colors: p.colors,
+                            desc: p.desc
+                        });
+                    }
+                    return fetchProducts();
+                }
+
+                renderProducts();
+                renderAdminProductsTable();
+            } catch (error) {
+                console.error("Error fetching products: ", error);
+            }
         }
 
-        // Save cart state
         function saveCartToStorage() {
             localStorage.setItem('asd_cart', JSON.stringify(cart));
             updateCartBadge();
         }
 
-        // --- RENDER FUNCTIONS ---
         function renderProducts() {
             const container = document.getElementById('productsGrid');
             container.innerHTML = '';
@@ -1386,14 +1399,14 @@
                 card.innerHTML = `
                     <div class="product-img-box">
                         <span class="stock-tag">NGOZI HALISI</span>
-                        <img src="${product.image}" alt="${product.title}" onclick="openProductModal(${product.id})">
+                        <img src="${product.image}" alt="${product.title}" onclick="openProductModal('${product.firestoreId}')" style="cursor:pointer;">
                     </div>
                     <div class="product-info">
-                        <div class="product-title" onclick="openProductModal(${product.id})" style="cursor:pointer;">${product.title}</div>
+                        <div class="product-title" onclick="openProductModal('${product.firestoreId}')" style="cursor:pointer;">${product.title}</div>
                         <div class="product-price">TZS ${product.price.toLocaleString()}</div>
                         <div class="product-actions">
-                            <button class="btn btn-gold" onclick="openProductModal(${product.id})"><i class="fa-solid fa-eye"></i> TAZAMA</button>
-                            <button class="btn btn-whatsapp" onclick="quickWhatsAppOrder(${product.id})"><i class="fa-brands fa-whatsapp"></i> ODA</button>
+                            <button class="btn btn-gold" onclick="openProductModal('${product.firestoreId}')"><i class="fa-solid fa-eye"></i> TAZAMA</button>
+                            <button class="btn btn-whatsapp" onclick="quickWhatsAppOrder('${product.firestoreId}')"><i class="fa-brands fa-whatsapp"></i> ODA</button>
                         </div>
                     </div>
                 `;
@@ -1418,7 +1431,7 @@
             }
         }
 
-        function filterProducts(category) {
+        window.filterProducts = function(category) {
             activeFilter = category;
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
@@ -1426,9 +1439,8 @@
             renderProducts();
         }
 
-        // --- PRODUCT DETAIL MODAL ---
-        function openProductModal(id) {
-            const product = products.find(p => p.id === id);
+        window.openProductModal = function(firestoreId) {
+            const product = products.find(p => p.firestoreId === firestoreId);
             if (!product) return;
             currentModalProduct = product;
 
@@ -1437,7 +1449,6 @@
             document.getElementById('modalPrice').innerText = `TZS ${product.price.toLocaleString()}`;
             document.getElementById('modalDesc').innerText = product.desc;
 
-            // Populate Sizes
             const sizeSelect = document.getElementById('modalSize');
             sizeSelect.innerHTML = '';
             product.sizes.forEach(sz => {
@@ -1447,7 +1458,6 @@
                 sizeSelect.appendChild(opt);
             });
 
-            // Populate Colors
             const colorSelect = document.getElementById('modalColor');
             colorSelect.innerHTML = '';
             product.colors.forEach(clr => {
@@ -1460,14 +1470,14 @@
             document.getElementById('productModal').style.display = 'block';
         }
 
-        function addToCartFromModal() {
+        window.addToCartFromModal = function() {
             if (!currentModalProduct) return;
             const selectedSize = document.getElementById('modalSize').value;
             const selectedColor = document.getElementById('modalColor').value;
             const qty = parseInt(document.getElementById('modalQty').value) || 1;
 
             const existingIndex = cart.findIndex(item => 
-                item.id === currentModalProduct.id && 
+                item.firestoreId === currentModalProduct.firestoreId && 
                 item.size === selectedSize && 
                 item.color === selectedColor
             );
@@ -1476,7 +1486,7 @@
                 cart[existingIndex].qty += qty;
             } else {
                 cart.push({
-                    id: currentModalProduct.id,
+                    firestoreId: currentModalProduct.firestoreId,
                     title: currentModalProduct.title,
                     price: currentModalProduct.price,
                     image: currentModalProduct.image,
@@ -1491,7 +1501,7 @@
             openCartModal();
         }
 
-        function directWhatsAppOrderFromModal() {
+        window.directWhatsAppOrderFromModal = function() {
             if (!currentModalProduct) return;
             const selectedSize = document.getElementById('modalSize').value;
             const selectedColor = document.getElementById('modalColor').value;
@@ -1508,21 +1518,19 @@ TOTAL: TZS ${total.toLocaleString()}
 
 Hello African Shoes Design, I would like to place this order directly. Please confirm availability.`;
 
-            const encodedMsg = encodeURIComponent(msg);
-            window.open(`https://wa.me/255676716619?text=${encodedMsg}`, '_blank');
+            window.open(`https://wa.me/255676716619?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        function quickWhatsAppOrder(id) {
-            openProductModal(id);
+        window.quickWhatsAppOrder = function(firestoreId) {
+            window.openProductModal(firestoreId);
         }
 
-        // --- CART & CHECKOUT LOGIC ---
         function updateCartBadge() {
             const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
             document.getElementById('cartCount').innerText = totalCount;
         }
 
-        function openCartModal() {
+        window.openCartModal = function() {
             renderCartItems();
             document.getElementById('cartModal').style.display = 'block';
         }
@@ -1577,7 +1585,7 @@ Hello African Shoes Design, I would like to place this order directly. Please co
             summaryBox.innerText = `JUMLA: TZS ${grandTotal.toLocaleString()}`;
         }
 
-        function updateCartQty(index, newQty) {
+        window.updateCartQty = function(index, newQty) {
             const qty = parseInt(newQty);
             if (qty > 0) {
                 cart[index].qty = qty;
@@ -1586,13 +1594,13 @@ Hello African Shoes Design, I would like to place this order directly. Please co
             }
         }
 
-        function removeFromCart(index) {
+        window.removeFromCart = function(index) {
             cart.splice(index, 1);
             saveCartToStorage();
             renderCartItems();
         }
 
-        function toggleDeliveryField() {
+        window.toggleDeliveryField = function() {
             const opt = document.getElementById('deliveryOption').value;
             const group = document.getElementById('deliveryLocationGroup');
             if (opt === 'PICK UP') {
@@ -1604,7 +1612,7 @@ Hello African Shoes Design, I would like to place this order directly. Please co
             }
         }
 
-        function handleCheckout(event) {
+        window.handleCheckout = function(event) {
             event.preventDefault();
             if (cart.length === 0) {
                 alert("Weka angalau kiatu kimoja kwenye cart kabla ya kutuma oda.");
@@ -1644,22 +1652,18 @@ Instructions: ${notes}
 
 Hello African Shoes Design, I would like to place this order. Please confirm availability and delivery details.`;
 
-            const encodedMessage = encodeURIComponent(whatsappMessage);
-            const whatsappUrl = `https://wa.me/${targetWhatsAppNumber}?text=${encodedMessage}`;
-
             cart = [];
             saveCartToStorage();
             closeModal('cartModal');
 
-            window.open(whatsappUrl, '_blank');
+            window.open(`https://wa.me/${targetWhatsAppNumber}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
         }
 
-        // --- ADMIN DASHBOARD & AUTH ---
-        function openAdminModal() {
+        window.openAdminModal = function() {
             document.getElementById('adminModal').style.display = 'block';
         }
 
-        function handleAdminLogin(event) {
+        window.handleAdminLogin = function(event) {
             event.preventDefault();
             const email = document.getElementById('adminEmail').value.trim();
             const pass = document.getElementById('adminPass').value.trim();
@@ -1673,14 +1677,14 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
             }
         }
 
-        function adminLogout() {
+        window.adminLogout = function() {
             document.getElementById('adminDashboardView').style.display = 'none';
             document.getElementById('adminLoginView').style.display = 'block';
             document.getElementById('adminEmail').value = '';
             document.getElementById('adminPass').value = '';
         }
 
-        function toggleCustomCategoryInput() {
+        window.toggleCustomCategoryInput = function() {
             const selectVal = document.getElementById('adminProdCategorySelect').value;
             const customInput = document.getElementById('adminProdCategoryCustom');
             if (selectVal === 'CUSTOM') {
@@ -1692,7 +1696,7 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
             }
         }
 
-        function uploadOfficeLogo() {
+        window.uploadOfficeLogo = function() {
             const fileInput = document.getElementById('officeLogoFile');
             if (fileInput.files && fileInput.files[0]) {
                 const file = fileInput.files[0];
@@ -1709,14 +1713,14 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
             }
         }
 
-        function resetOfficeLogo() {
+        window.resetOfficeLogo = function() {
             officeLogoDataUrl = "";
             localStorage.removeItem('asd_office_logo');
             renderLogo();
             alert("Logo imerudishwa kwenye muundo wa default wa maandishi.");
         }
 
-        function handleImageFileUpload(event) {
+        window.handleImageFileUpload = function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -1727,9 +1731,9 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
             }
         }
 
-        function saveProduct(event) {
+        window.saveProduct = async function(event) {
             event.preventDefault();
-            const editId = document.getElementById('adminProdId').value;
+            const editFirestoreId = document.getElementById('adminProdId').value;
             const title = document.getElementById('adminProdTitle').value;
             const price = parseFloat(document.getElementById('adminProdPrice').value);
             
@@ -1746,35 +1750,34 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
             const sizes = sizesStr.split(',').map(s => s.trim()).filter(s => s);
             const colors = colorsStr.split(',').map(c => c.trim()).filter(c => c);
 
-            if (editId) {
-                const index = products.findIndex(p => p.id == editId);
-                if (index > -1) {
-                    products[index] = {
-                        id: parseInt(editId),
-                        title, price, category, image, sizes, colors, desc
-                    };
-                }
-            } else {
-                const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
-                products.push({
-                    id: newId,
-                    title, price, category, image, sizes, colors, desc
-                });
-            }
+            const productData = { title, price, category, image, sizes, colors, desc };
 
-            saveProductsToStorage();
-            renderProducts();
-            renderAdminProductsTable();
-            resetAdminForm();
-            alert("Bidhaa imehifadhiwa kikamilifu!");
+            try {
+                if (editFirestoreId) {
+                    const docRef = doc(db, "products", editFirestoreId);
+                    await updateDoc(docRef, productData);
+                    alert("Bidhaa imebadilishwa na kuhifadhiwa kwenye mtandao!");
+                } else {
+                    const newId = products.length > 0 ? Math.max(...products.map(p => p.id || 0)) + 1 : 1;
+                    productData.id = newId;
+                    await addDoc(collection(db, "products"), productData);
+                    alert("Bidhaa mpya imeongezwa kwenye mtandao!");
+                }
+
+                resetAdminForm();
+                fetchProducts();
+            } catch (error) {
+                console.error("Error saving product: ", error);
+                alert("Hitilafu imetokea wakati wa kuhifadhi.");
+            }
         }
 
-        function editProduct(id) {
-            const product = products.find(p => p.id === id);
+        window.editProduct = function(firestoreId) {
+            const product = products.find(p => p.firestoreId === firestoreId);
             if (!product) return;
 
             document.getElementById('adminFormTitle').innerText = "Edit Bidhaa";
-            document.getElementById('adminProdId').value = product.id;
+            document.getElementById('adminProdId').value = product.firestoreId;
             document.getElementById('adminProdTitle').value = product.title;
             document.getElementById('adminProdPrice').value = product.price;
 
@@ -1797,16 +1800,19 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
             document.getElementById('adminProdDesc').value = product.desc;
         }
 
-        function deleteProduct(id) {
+        window.deleteProduct = async function(firestoreId) {
             if (confirm("Je, una uhakika unataka kufuta bidhaa hii kikamilifu?")) {
-                products = products.filter(p => p.id !== id);
-                saveProductsToStorage();
-                renderProducts();
-                renderAdminProductsTable();
+                try {
+                    await deleteDoc(doc(db, "products", firestoreId));
+                    fetchProducts();
+                    alert("Bidhaa imefutwa!");
+                } catch (error) {
+                    console.error("Error deleting product: ", error);
+                }
             }
         }
 
-        function resetAdminForm() {
+        window.resetAdminForm = function() {
             document.getElementById('adminFormTitle').innerText = "Ongeza Bidhaa Mpya";
             document.getElementById('adminProductForm').reset();
             document.getElementById('adminProdId').value = '';
@@ -1827,20 +1833,19 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
                     <td>TZS ${p.price.toLocaleString()}</td>
                     <td>${p.sizes.join(', ')}</td>
                     <td>
-                        <button onclick="editProduct(${p.id})" style="color:blue; border:none; background:none; cursor:pointer; margin-right:10px;"><i class="fa-solid fa-pen"></i> Edit</button>
-                        <button onclick="deleteProduct(${p.id})" style="color:red; border:none; background:none; cursor:pointer;"><i class="fa-solid fa-trash"></i> Futa</button>
+                        <button onclick="window.editProduct('${p.firestoreId}')" style="color:blue; border:none; background:none; cursor:pointer; margin-right:10px;"><i class="fa-solid fa-pen"></i> Edit</button>
+                        <button onclick="window.deleteProduct('${p.firestoreId}')" style="color:red; border:none; background:none; cursor:pointer;"><i class="fa-solid fa-trash"></i> Futa</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        // --- HELPER UTILS ---
-        function closeModal(modalId) {
+        window.closeModal = function(modalId) {
             document.getElementById(modalId).style.display = 'none';
         }
 
-        function toggleMenu() {
+        window.toggleMenu = function() {
             document.getElementById('navMenu').classList.toggle('active');
         }
 
@@ -1852,7 +1857,7 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
 
         document.addEventListener('DOMContentLoaded', () => {
             renderLogo();
-            renderProducts();
+            fetchProducts();
             updateCartBadge();
         });
     </script>
