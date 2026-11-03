@@ -807,7 +807,6 @@
     <header>
         <div class="nav-container">
             <a href="#" class="logo" id="headerLogoContainer">
-                <!-- Dynamic Logo standard fallback -->
                 <i class="fa-solid fa-shoe-prints fa-2x"></i>
                 <div>
                     <span class="logo-text">AFRICAN SHOES</span>
@@ -1258,6 +1257,26 @@
         </div>
     </div>
 
+    <!-- FIREBASE SDK CONFIGURATION -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD_QSYogidL5B-qr9nCKy_Tuh4EktYR0Mk",
+            authDomain: "african-shoes-design.firebaseapp.com",
+            projectId: "african-shoes-design",
+            storageBucket: "african-shoes-design.firebasestorage.app",
+            messagingSenderId: "542397652746",
+            appId: "1:542397652746:web:e3fcf214702aaeed8de4f3",
+            measurementId: "G-K6YMN2MD65"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+
     <!-- JAVASCRIPT APP LOGIC -->
     <script>
         // --- INITIAL DATA & STORAGE LOGIC ---
@@ -1373,7 +1392,7 @@
                         <div class="product-title" onclick="openProductModal(${product.id})" style="cursor:pointer;">${product.title}</div>
                         <div class="product-price">TZS ${product.price.toLocaleString()}</div>
                         <div class="product-actions">
-                            <button class="btn btn-gold" onclick="openProductModal(${product.id})"><i class="fa-solid fa-eye"></i> TAXTAMA</button>
+                            <button class="btn btn-gold" onclick="openProductModal(${product.id})"><i class="fa-solid fa-eye"></i> TAZAMA</button>
                             <button class="btn btn-whatsapp" onclick="quickWhatsAppOrder(${product.id})"><i class="fa-brands fa-whatsapp"></i> ODA</button>
                         </div>
                     </div>
@@ -1598,7 +1617,6 @@ Hello African Shoes Design, I would like to place this order directly. Please co
             const location = deliveryType === 'PICK UP' ? "Sophia House, Chan'gombe VETA (Store Pick Up)" : document.getElementById('custLocation').value;
             const notes = document.getElementById('custNotes').value || "None";
 
-            // Determine target phone number based on button submit
             const submitterBtn = event.submitter ? event.submitter.value : "1";
             const targetWhatsAppNumber = submitterBtn === "2" ? "255657576696" : "255676716619";
 
@@ -1629,12 +1647,10 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
             const encodedMessage = encodeURIComponent(whatsappMessage);
             const whatsappUrl = `https://wa.me/${targetWhatsAppNumber}?text=${encodedMessage}`;
 
-            // Clear Cart after successful checkout generation
             cart = [];
             saveCartToStorage();
             closeModal('cartModal');
 
-            // Redirect directly to WhatsApp
             window.open(whatsappUrl, '_blank');
         }
 
@@ -1717,11 +1733,9 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
             const title = document.getElementById('adminProdTitle').value;
             const price = parseFloat(document.getElementById('adminProdPrice').value);
             
-            // Category logic
             const catSelect = document.getElementById('adminProdCategorySelect').value;
             const category = catSelect === 'CUSTOM' ? document.getElementById('adminProdCategoryCustom').value : catSelect;
 
-            // Image file or URL
             const imageUrlInput = document.getElementById('adminProdImgUrl').value;
             let image = uploadedBase64Image || imageUrlInput || "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&q=80&w=800";
 
@@ -1733,7 +1747,6 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
             const colors = colorsStr.split(',').map(c => c.trim()).filter(c => c);
 
             if (editId) {
-                // Update Existing Product
                 const index = products.findIndex(p => p.id == editId);
                 if (index > -1) {
                     products[index] = {
@@ -1742,7 +1755,6 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
                     };
                 }
             } else {
-                // Create New Product
                 const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
                 products.push({
                     id: newId,
@@ -1766,7 +1778,6 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
             document.getElementById('adminProdTitle').value = product.title;
             document.getElementById('adminProdPrice').value = product.price;
 
-            // Set Category
             const catSelect = document.getElementById('adminProdCategorySelect');
             const catCustom = document.getElementById('adminProdCategoryCustom');
             if (['Men Formal', 'Men Casual', 'Loafers', 'Boots', 'Women', 'Sandals'].includes(product.category)) {
@@ -1833,14 +1844,12 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
             document.getElementById('navMenu').classList.toggle('active');
         }
 
-        // Close Modals when clicking outside
         window.onclick = function(event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
             }
         };
 
-        // Initialize App on DOM Load
         document.addEventListener('DOMContentLoaded', () => {
             renderLogo();
             renderProducts();
