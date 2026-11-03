@@ -1123,8 +1123,11 @@
                     <p id="modalDesc" style="color: #555; margin-bottom: 15px; font-size: 0.9rem;"></p>
                     
                     <div class="selector-group">
-                        <label for="modalSize" data-translate="lblSelectSize">Chagua Size (Available):</label>
+                        <label for="modalSize" data-translate="lblSelectSize">Namba zilizopo (Available Sizes):</label>
                         <select id="modalSize"></select>
+                        <label for="modalCustomSize" style="display:block; margin-top:10px;">Au andika namba unayotaka (kama haipo kwenye orodha):</label>
+                        <input type="number" id="modalCustomSize" min="1" max="100" step="1" placeholder="Andika namba ya kiatu unayotaka" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:5px;">
+                        <small style="display:block; margin-top:5px; color:#777;">Ukiacha sehemu hii wazi, tutatumia namba uliyochagua kwenye orodha hapo juu.</small>
                     </div>
 
                     <div class="selector-group">
@@ -2011,6 +2014,28 @@
             }
         };
 
+        // Tumia namba iliyoandikwa na mteja ikiwa amejaza; vinginevyo tumia iliyochaguliwa.
+        function getModalSelectedSize() {
+            const customInput = document.getElementById('modalCustomSize');
+            const customSize = customInput ? customInput.value.trim() : '';
+            const listedSize = document.getElementById('modalSize').value;
+
+            if (customSize) {
+                const parsed = Number(customSize);
+                if (!Number.isInteger(parsed) || parsed < 1 || parsed > 100) {
+                    alert('Tafadhali andika namba sahihi ya kiatu.');
+                    customInput.focus();
+                    return null;
+                }
+                return customSize;
+            }
+            if (!listedSize) {
+                alert('Tafadhali chagua namba ya kiatu au uiandike kwenye sehemu ya chini.');
+                return null;
+            }
+            return listedSize;
+        }
+
         window.openProductModal = function(firestoreId) {
             const product = products.find(p => p.firestoreId === firestoreId);
             if (!product) return;
@@ -2033,6 +2058,7 @@
                 opt.innerText = `Size ${sz}`;
                 sizeSelect.appendChild(opt);
             });
+            document.getElementById('modalCustomSize').value = '';
 
             const colorSelect = document.getElementById('modalColor');
             colorSelect.innerHTML = '';
@@ -2049,7 +2075,8 @@
 
         window.addToCartFromModal = function() {
             if (!currentModalProduct) return;
-            const selectedSize = document.getElementById('modalSize').value;
+            const selectedSize = getModalSelectedSize();
+            if (selectedSize === null) return;
             const selectedColor = document.getElementById('modalColor').value;
             const qty = parseInt(document.getElementById('modalQty').value) || 1;
 
@@ -2080,7 +2107,8 @@
 
         window.directWhatsAppOrderFromModal = function() {
             if (!currentModalProduct) return;
-            const selectedSize = document.getElementById('modalSize').value;
+            const selectedSize = getModalSelectedSize();
+            if (selectedSize === null) return;
             const selectedColor = document.getElementById('modalColor').value;
             const qty = parseInt(document.getElementById('modalQty').value) || 1;
             const total = currentModalProduct.price * qty;
