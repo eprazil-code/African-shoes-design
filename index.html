@@ -36,6 +36,7 @@
             background-color: var(--cream);
             color: var(--black);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         h1, h2, h3, h4, .brand-font {
@@ -47,7 +48,7 @@
             color: inherit;
         }
 
-        /* HEADER & NAVBAR */
+        /* TOP ANNOUNCEMENT BAR */
         .top-bar {
             background-color: var(--black);
             color: var(--gold);
@@ -58,6 +59,7 @@
             font-weight: 500;
         }
 
+        /* HEADER & NAVBAR */
         header {
             background-color: var(--dark-brown);
             position: sticky;
@@ -73,7 +75,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 25px;
+            padding: 12px 20px;
         }
 
         .logo {
@@ -84,14 +86,14 @@
         }
 
         .logo img {
-            height: 50px;
+            height: 48px;
             width: auto;
             object-fit: contain;
             border-radius: 4px;
         }
 
         .logo-text {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 900;
             letter-spacing: 1.5px;
             color: var(--gold);
@@ -109,7 +111,8 @@
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 20px;
+            align-items: center;
         }
 
         .nav-link {
@@ -124,10 +127,31 @@
             color: var(--gold);
         }
 
-        .nav-icons {
+        .nav-right-actions {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
+        }
+
+        /* LANGUAGE SWITCHER BUTTON */
+        .lang-btn {
+            background-color: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 4px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background-color: var(--gold);
+            color: var(--black);
         }
 
         .cart-icon-btn {
@@ -135,15 +159,16 @@
             color: var(--gold);
             font-size: 1.3rem;
             cursor: pointer;
+            padding: 5px;
         }
 
         .cart-badge {
             position: absolute;
-            top: -8px;
-            right: -10px;
-            background-color: red;
+            top: -6px;
+            right: -8px;
+            background-color: #E53E3E;
             color: white;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             width: 20px;
             height: 20px;
             border-radius: 50%;
@@ -156,20 +181,21 @@
         .menu-toggle {
             display: none;
             color: var(--gold);
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             cursor: pointer;
+            padding: 5px;
         }
 
         /* HERO SECTION */
         .hero {
-            background: linear-gradient(rgba(44, 24, 16, 0.75), rgba(18, 18, 18, 0.85)), url('https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&q=80&w=1600') center/cover no-repeat;
-            height: 85vh;
+            background: linear-gradient(rgba(44, 24, 16, 0.8), rgba(18, 18, 18, 0.85)), url('https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&q=80&w=1600') center/cover no-repeat;
+            min-height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: var(--cream);
-            padding: 0 20px;
+            padding: 60px 20px;
         }
 
         .hero-content {
@@ -177,15 +203,16 @@
         }
 
         .hero h1 {
-            font-size: 3.2rem;
+            font-size: 2.8rem;
             color: var(--gold);
             margin-bottom: 20px;
             letter-spacing: 2px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            line-height: 1.3;
         }
 
         .hero p {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             margin-bottom: 35px;
             color: var(--beige);
             font-weight: 300;
@@ -193,24 +220,26 @@
 
         .btn-group {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
             flex-wrap: wrap;
         }
 
         .btn {
-            padding: 14px 32px;
-            font-size: 0.95rem;
+            padding: 12px 28px;
+            font-size: 0.9rem;
             font-weight: 600;
             letter-spacing: 1px;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
             border: 2px solid transparent;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
+            min-height: 46px;
         }
 
         .btn-gold {
@@ -245,16 +274,16 @@
 
         /* SECTION STYLING */
         section {
-            padding: 80px 20px;
+            padding: 60px 20px;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         .section-title h2 {
-            font-size: 2.3rem;
+            font-size: 2rem;
             color: var(--dark-brown);
             margin-bottom: 10px;
             position: relative;
@@ -264,32 +293,32 @@
         .section-title h2::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
+            width: 70px;
             height: 3px;
             background-color: var(--gold);
         }
 
         .section-title p {
             color: var(--gray-text);
-            margin-top: 15px;
-            font-size: 1rem;
+            margin-top: 12px;
+            font-size: 0.95rem;
         }
 
-        /* WHY CHOOSE US */
+        /* FEATURES GRID */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .feature-card {
             background-color: var(--white);
-            padding: 35px 25px;
+            padding: 30px 20px;
             border-radius: 8px;
             text-align: center;
             box-shadow: var(--shadow);
@@ -298,27 +327,27 @@
         }
 
         .feature-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
         }
 
         .feature-card i {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             color: var(--gold);
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .feature-card h3 {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             color: var(--dark-brown);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .feature-card p {
             color: var(--gray-text);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
         }
 
-        /* PRODUCT CATALOG & FILTER */
+        /* CATALOG & FILTERS */
         .catalog-container {
             max-width: 1300px;
             margin: 0 auto;
@@ -327,21 +356,22 @@
         .filter-bar {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
+            gap: 10px;
+            margin-bottom: 35px;
             flex-wrap: wrap;
         }
 
         .filter-btn {
-            padding: 8px 20px;
+            padding: 8px 18px;
             border: 1px solid var(--gold);
             background-color: var(--white);
             color: var(--dark-brown);
             border-radius: 30px;
             cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 0.85rem;
+            font-weight: 600;
             transition: all 0.3s;
+            touch-action: manipulation;
         }
 
         .filter-btn.active, .filter-btn:hover {
@@ -351,8 +381,8 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
         }
 
         .product-card {
@@ -371,7 +401,7 @@
 
         .product-img-box {
             position: relative;
-            height: 260px;
+            height: 250px;
             background-color: var(--beige);
             overflow: hidden;
         }
@@ -384,56 +414,56 @@
         }
 
         .product-card:hover .product-img-box img {
-            transform: scale(1.08);
+            transform: scale(1.06);
         }
 
         .stock-tag {
             position: absolute;
-            top: 12px;
-            left: 12px;
+            top: 10px;
+            left: 10px;
             background-color: var(--dark-brown);
             color: var(--gold);
-            padding: 4px 10px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            padding: 4px 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
             border-radius: 3px;
         }
 
         .product-info {
-            padding: 20px;
+            padding: 18px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
 
         .product-title {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--dark-brown);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 700;
         }
 
         .product-price {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: var(--gold-hover);
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .product-actions {
             margin-top: auto;
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .product-actions .btn {
-            padding: 10px;
-            font-size: 0.85rem;
+            padding: 8px;
+            font-size: 0.8rem;
             flex: 1;
             justify-content: center;
         }
 
-        /* MODAL */
+        /* MODAL RESPONSIVENESS */
         .modal {
             display: none;
             position: fixed;
@@ -441,16 +471,16 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(0,0,0,0.85);
             z-index: 2000;
             overflow-y: auto;
-            padding: 20px;
+            padding: 15px;
         }
 
         .modal-content {
             background-color: var(--white);
             max-width: 850px;
-            margin: 40px auto;
+            margin: 20px auto;
             border-radius: 8px;
             overflow: hidden;
             position: relative;
@@ -458,30 +488,37 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
+            from { opacity: 0; transform: translateY(-15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .close-modal {
             position: absolute;
-            top: 15px;
-            right: 20px;
+            top: 12px;
+            right: 15px;
             font-size: 1.8rem;
             color: var(--black);
             cursor: pointer;
             z-index: 10;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
         }
 
         .product-detail-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            padding: 30px;
+            gap: 25px;
+            padding: 25px;
         }
 
         .detail-img {
             width: 100%;
-            height: 350px;
+            height: 320px;
             object-fit: cover;
             border-radius: 8px;
             background-color: var(--beige);
@@ -489,25 +526,26 @@
 
         .detail-info h2 {
             color: var(--dark-brown);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            font-size: 1.5rem;
         }
 
         .detail-price {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: var(--gold-hover);
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .selector-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .selector-group label {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         .selector-group select, .selector-group input {
@@ -515,22 +553,29 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            font-size: 0.9rem;
         }
 
         .cart-modal-body {
-            padding: 30px;
+            padding: 25px;
+        }
+
+        .cart-table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 15px;
         }
 
         .cart-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            min-width: 450px;
         }
 
         .cart-table th, .cart-table td {
-            padding: 12px;
+            padding: 10px;
             text-align: left;
             border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
         }
 
         .cart-table th {
@@ -539,34 +584,34 @@
         }
 
         .cart-item-img {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             object-fit: cover;
             border-radius: 4px;
         }
 
         .cart-summary {
             text-align: right;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            margin-top: 20px;
+            margin-top: 15px;
             color: var(--dark-brown);
         }
 
         .checkout-form {
             display: grid;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 15px;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
         }
 
         .form-group label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
         }
 
@@ -574,8 +619,10 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            font-size: 0.9rem;
         }
 
+        /* LOCATION & MAP */
         .location-section {
             background-color: var(--beige);
         }
@@ -583,14 +630,14 @@
         .location-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
             align-items: center;
         }
 
         .map-box {
-            height: 380px;
+            height: 350px;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: var(--shadow);
@@ -604,7 +651,7 @@
         }
 
         .location-info h3 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: var(--dark-brown);
             margin-bottom: 15px;
         }
@@ -612,7 +659,7 @@
         .info-item {
             display: flex;
             align-items: flex-start;
-            gap: 15px;
+            gap: 12px;
             margin-bottom: 15px;
         }
 
@@ -622,21 +669,22 @@
             margin-top: 4px;
         }
 
+        /* DYNAMIC INSTAGRAM / GALLERY */
         .insta-section {
             text-align: center;
         }
 
         .insta-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
             max-width: 1200px;
-            margin: 30px auto;
+            margin: 25px auto;
         }
 
         .insta-post {
             position: relative;
-            height: 220px;
+            height: 200px;
             border-radius: 6px;
             overflow: hidden;
         }
@@ -668,22 +716,23 @@
         }
 
         .about-section {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
             text-align: center;
         }
 
         .about-section p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #444;
-            line-height: 1.8;
-            margin-bottom: 20px;
+            line-height: 1.7;
+            margin-bottom: 15px;
         }
 
+        /* FOOTER */
         footer {
             background-color: var(--black);
             color: var(--cream);
-            padding: 60px 20px 20px;
+            padding: 50px 20px 20px;
             border-top: 3px solid var(--gold);
         }
 
@@ -691,24 +740,24 @@
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
         }
 
         .footer-col h4 {
             color: var(--gold);
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
             position: relative;
         }
 
         .footer-col h4::after {
             content: '';
             position: absolute;
-            bottom: -6px;
+            bottom: -5px;
             left: 0;
-            width: 40px;
+            width: 35px;
             height: 2px;
             background-color: var(--gold);
         }
@@ -718,7 +767,7 @@
         }
 
         .footer-links li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .footer-links a:hover {
@@ -727,25 +776,25 @@
 
         .copyright {
             text-align: center;
-            padding-top: 20px;
+            padding-top: 15px;
             border-top: 1px solid #333;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #888;
         }
 
         .floating-whatsapp {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 25px;
+            right: 25px;
             background-color: #25D366;
             color: white;
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.8rem;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             z-index: 1500;
             transition: transform 0.3s;
@@ -755,12 +804,13 @@
             transform: scale(1.1);
         }
 
+        /* MOBILE RESPONSIVE QUERIES */
         @media (max-width: 900px) {
             .location-grid, .product-detail-grid {
                 grid-template-columns: 1fr;
             }
             .hero h1 {
-                font-size: 2.3rem;
+                font-size: 2.1rem;
             }
         }
 
@@ -775,6 +825,7 @@
                 background-color: var(--dark-brown);
                 padding: 20px;
                 border-bottom: 2px solid var(--gold);
+                gap: 15px;
             }
             .nav-menu.active {
                 display: flex;
@@ -782,8 +833,24 @@
             .menu-toggle {
                 display: block;
             }
+            .hero {
+                min-height: 70vh;
+                padding: 40px 15px;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
             .hero p {
                 font-size: 1rem;
+            }
+            .btn {
+                width: 100%;
+            }
+            .btn-group {
+                width: 100%;
+            }
+            .admin-form-grid {
+                grid-template-columns: 1fr !important;
             }
         }
     </style>
@@ -791,7 +858,7 @@
 <body>
 
     <!-- TOP ANNOUNCEMENT BAR -->
-    <div class="top-bar">
+    <div class="top-bar" id="topBarText">
         <i class="fa-solid fa-truck-fast"></i> Delivery inafanyika Tanzania nzima na Nje ya nchi kwa gharama za mteja | Sophia House, Chan'gombe VETA
     </div>
 
@@ -807,15 +874,20 @@
             </a>
             
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link active">Nyumbani</a></li>
-                <li><a href="#shop" class="nav-link">Duka la Viatu</a></li>
-                <li><a href="#about" class="nav-link">Kuhusu Sisi</a></li>
-                <li><a href="#location" class="nav-link">Location</a></li>
-                <li><a href="#contact" class="nav-link">Wasiliana Nasi</a></li>
+                <li><a href="#home" class="nav-link active" data-i18n="navHome">Nyumbani</a></li>
+                <li><a href="#shop" class="nav-link" data-i18n="navShop">Duka la Viatu</a></li>
+                <li><a href="#about" class="nav-link" data-i18n="navAbout">Kuhusu Sisi</a></li>
+                <li><a href="#location" class="nav-link" data-i18n="navLocation">Location</a></li>
+                <li><a href="#contact" class="nav-link" data-i18n="navContact">Wasiliana Nasi</a></li>
                 <li><a onclick="openAdminModal()" class="nav-link" style="color: var(--gold); cursor: pointer;"><i class="fa-solid fa-lock"></i> Admin Portal</a></li>
             </ul>
 
-            <div class="nav-icons">
+            <div class="nav-right-actions">
+                <!-- LANGUAGE SWITCHER BUTTON -->
+                <button class="lang-btn" onclick="window.toggleLanguage()" id="langToggleBtn" title="Switch Language / Badili Lugha">
+                    <i class="fa-solid fa-globe"></i> <span id="langLabel">EN</span>
+                </button>
+
                 <div class="cart-icon-btn" onclick="openCartModal()">
                     <i class="fa-solid fa-bag-shopping"></i>
                     <span class="cart-badge" id="cartCount">0</span>
@@ -830,12 +902,12 @@
     <!-- HERO SECTION -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>STEP INTO QUALITY. WALK WITH CONFIDENCE.</h1>
-            <p>Karibu African Shoes Design. Tunakuletea viatu vya ngozi halisi vyenye ubora wa kipekee, comfort na muonekano wa kisasa.</p>
+            <h1 data-i18n="heroTitle">STEP INTO QUALITY. WALK WITH CONFIDENCE.</h1>
+            <p data-i18n="heroSub">Karibu African Shoes Design. Tunakuletea viatu vya ngozi halisi vyenye ubora wa kipekee, comfort na muonekano wa kisasa.</p>
             <div class="btn-group">
-                <a href="#shop" class="btn btn-gold"><i class="fa-solid fa-cart-shopping"></i> SHOP NOW</a>
-                <a href="https://wa.me/255676716619?text=Habari%20African%20Shoes%20Design,%20natamani%20kuagiza%20viatu." target="_blank" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> ORDER VIA WHATSAPP</a>
-                <a href="#location" class="btn btn-outline"><i class="fa-solid fa-location-dot"></i> VISIT OUR STORE</a>
+                <a href="#shop" class="btn btn-gold"><i class="fa-solid fa-cart-shopping"></i> <span data-i18n="btnShopNow">SHOP NOW</span></a>
+                <a href="https://wa.me/255676716619?text=Habari%20African%20Shoes%20Design,%20natamani%20kuagiza%20viatu." target="_blank" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> <span data-i18n="btnOrderWa">ORDER VIA WHATSAPP</span></a>
+                <a href="#location" class="btn btn-outline"><i class="fa-solid fa-location-dot"></i> <span data-i18n="btnVisitStore">VISIT OUR STORE</span></a>
             </div>
         </div>
     </section>
@@ -843,29 +915,29 @@
     <!-- WHY CHOOSE US -->
     <section>
         <div class="section-title">
-            <h2>KWANINI UCHAGUZI WAKO UWE AFRICAN SHOES DESIGN</h2>
-            <p>Ubora unaodumu na muonekano wa kifahari kwa kila hatua unayopiga.</p>
+            <h2 data-i18n="whyTitle">KWANINI UCHAGUZI WAKO UWE AFRICAN SHOES DESIGN</h2>
+            <p data-i18n="whySub">Ubora unaodumu na muonekano wa kifahari kwa kila hatua unayopiga.</p>
         </div>
         <div class="features-grid">
             <div class="feature-card">
                 <i class="fa-solid fa-shield-halved"></i>
-                <h3>Genuine Leather</h3>
-                <p>Tunatumia ngozi halisi 100% inayodumu kwa miaka mingi bila kupoteza ubora wake.</p>
+                <h3 data-i18n="feat1Title">Genuine Leather</h3>
+                <p data-i18n="feat1Desc">Tunatumia ngozi halisi 100% inayodumu kwa miaka mingi bila kupoteza ubora wake.</p>
             </div>
             <div class="feature-card">
                 <i class="fa-solid fa-gem"></i>
-                <h3>Premium Quality</h3>
-                <p>Kila kiatu kinatengenezwa kwa umakini wa hali ya juu na viwango vya kimataifa.</p>
+                <h3 data-i18n="feat2Title">Premium Quality</h3>
+                <p data-i18n="feat2Desc">Kila kiatu kinatengenezwa kwa umakini wa hali ya juu na viwango vya kimataifa.</p>
             </div>
             <div class="feature-card">
                 <i class="fa-solid fa-feather"></i>
-                <h3>Maximum Comfort</h3>
-                <p>Inasapoti mguu wako vizuri na kutoa comfort ya hali ya juu siku nzima.</p>
+                <h3 data-i18n="feat3Title">Maximum Comfort</h3>
+                <p data-i18n="feat3Desc">Inasapoti mguu wako vizuri na kutoa comfort ya hali ya juu siku nzima.</p>
             </div>
             <div class="feature-card">
                 <i class="fa-brands fa-whatsapp"></i>
-                <h3>Easy WhatsApp Ordering</h3>
-                <p>Chagua kiatu, weka size yako, na agiza moja kwa moja kupitia WhatsApp kwa urahisi.</p>
+                <h3 data-i18n="feat4Title">Easy WhatsApp Ordering</h3>
+                <p data-i18n="feat4Desc">Chagua kiatu, weka size yako, na agiza moja kwa moja kupitia WhatsApp kwa urahisi.</p>
             </div>
         </div>
     </section>
@@ -873,19 +945,19 @@
     <!-- PRODUCT CATALOG / SHOP -->
     <section id="shop" class="catalog-container">
         <div class="section-title">
-            <h2>DUKA LA VIATU VYA NGOZI</h2>
-            <p>Tazama mkusanyiko wetu wa viatu vya kifahari na uchague saizi yako.</p>
+            <h2 data-i18n="shopTitle">DUKA LA VIATU VYA NGOZI</h2>
+            <p data-i18n="shopSub">Tazama mkusanyiko wetu wa viatu vya kifahari na uchague saizi yako.</p>
         </div>
 
         <!-- Filter Bar -->
         <div class="filter-bar" id="categoryFilters">
-            <button class="filter-btn active" onclick="filterProducts('all')">Viatu Vyote</button>
-            <button class="filter-btn" onclick="filterProducts('Men Formal')">Men's Formal</button>
-            <button class="filter-btn" onclick="filterProducts('Men Casual')">Men's Casual</button>
-            <button class="filter-btn" onclick="filterProducts('Loafers')">Leather Loafers</button>
-            <button class="filter-btn" onclick="filterProducts('Boots')">Leather Boots</button>
-            <button class="filter-btn" onclick="filterProducts('Women')">Women's Leather</button>
-            <button class="filter-btn" onclick="filterProducts('Sandals')">Premium Sandals</button>
+            <button class="filter-btn active" onclick="filterProducts('all')" data-i18n="catAll">Viatu Vyote</button>
+            <button class="filter-btn" onclick="filterProducts('Men Formal')" data-i18n="catMenFormal">Men's Formal</button>
+            <button class="filter-btn" onclick="filterProducts('Men Casual')" data-i18n="catMenCasual">Men's Casual</button>
+            <button class="filter-btn" onclick="filterProducts('Loafers')" data-i18n="catLoafers">Leather Loafers</button>
+            <button class="filter-btn" onclick="filterProducts('Boots')" data-i18n="catBoots">Leather Boots</button>
+            <button class="filter-btn" onclick="filterProducts('Women')" data-i18n="catWomen">Women's Leather</button>
+            <button class="filter-btn" onclick="filterProducts('Sandals')" data-i18n="catSandals">Premium Sandals</button>
         </div>
 
         <!-- Products Grid -->
@@ -898,19 +970,19 @@
     <section id="about" style="background-color: var(--beige);">
         <div class="about-section">
             <div class="section-title">
-                <h2>ABOUT AFRICAN SHOES DESIGN</h2>
+                <h2 data-i18n="aboutTitle">ABOUT AFRICAN SHOES DESIGN</h2>
             </div>
-            <p><strong>African Shoes Design</strong> ni biashara inayojikita katika kutoa viatu vya ngozi halisi vyenye ubora wa hali ya juu, comfort na design za kisasa.</p>
-            <p>Dhamira yetu ni kuwapatia wateja viatu vinavyowafanya wajisikie vizuri, waonekane smart na watembee kwa confidence katika shughuli zao za kila siku au matukio maalum.</p>
-            <p>Ubora, uaminifu na kuridhika kwa mteja ni kipaumbele chetu namba moja mara zote.</p>
+            <p data-i18n="aboutP1"><strong>African Shoes Design</strong> ni biashara inayojikita katika kutoa viatu vya ngozi halisi vyenye ubora wa hali ya juu, comfort na design za kisasa.</p>
+            <p data-i18n="aboutP2">Dhamira yetu ni kuwapatia wateja viatu vinavyowafanya wajisikie vizuri, waonekane smart na watembee kwa confidence katika shughuli zao za kila siku au matukio maalum.</p>
+            <p data-i18n="aboutP3">Ubora, uaminifu na kuridhika kwa mteja ni kipaumbele chetu namba moja mara zote.</p>
         </div>
     </section>
 
     <!-- LOCATION & GOOGLE MAPS -->
     <section id="location" class="location-section">
         <div class="section-title">
-            <h2>LOCATION YA DUKA LETU</h2>
-            <p>Karibu ututembelee dukani Sophia House, Chan'gombe VETA, Dar es Salaam.</p>
+            <h2 data-i18n="locTitle">LOCATION YA DUKA LETU</h2>
+            <p data-i18n="locSub">Karibu ututembelee dukani Sophia House, Chan'gombe VETA, Dar es Salaam.</p>
         </div>
         <div class="location-grid">
             <div class="location-info">
@@ -918,22 +990,22 @@
                 <div class="info-item">
                     <i class="fa-solid fa-location-dot"></i>
                     <div>
-                        <strong>Eneo la Duka:</strong><br>
+                        <strong data-i18n="locAddressHead">Eneo la Duka:</strong><br>
                         Sophia House, Chan'gombe VETA,<br>Dar es Salaam, Tanzania.
                     </div>
                 </div>
                 <div class="info-item">
                     <i class="fa-solid fa-phone"></i>
                     <div>
-                        <strong>Simu za Mawasiliano:</strong><br>
+                        <strong data-i18n="locPhoneHead">Simu za Mawasiliano:</strong><br>
                         <a href="tel:0755154363">0755 154 363</a> | <a href="tel:0676716619">0676 716 619</a> | <a href="tel:0657576696">0657 576 696</a>
                     </div>
                 </div>
                 <div class="info-item">
                     <i class="fa-solid fa-truck-ramp-box"></i>
                     <div>
-                        <strong>Huduma ya Delivery:</strong><br>
-                        Delivery inafanyika Tanzania nzima na Nje ya nchi kwa gharama za mteja (Gharama zithibitishwe via WhatsApp).
+                        <strong data-i18n="locDelivHead">Huduma ya Delivery:</strong><br>
+                        <span data-i18n="locDelivText">Delivery inafanyika Tanzania nzima na Nje ya nchi kwa gharama za mteja (Gharama zithibitishwe via WhatsApp).</span>
                     </div>
                 </div>
                 <div class="btn-group" style="justify-content: flex-start; margin-top: 25px;">
@@ -948,45 +1020,30 @@
         </div>
     </section>
 
-    <!-- INSTAGRAM INTEGRATION -->
+    <!-- INSTAGRAM INTEGRATION (DYNAMIC ADMIN CONTROLLED) -->
     <section class="insta-section" id="instagram">
         <div class="section-title">
-            <h2>FOLLOW OUR STYLE ON INSTAGRAM</h2>
+            <h2 data-i18n="instaTitle">FOLLOW OUR STYLE ON INSTAGRAM</h2>
             <p>@africanshoes_</p>
         </div>
-        <div class="insta-grid">
-            <div class="insta-post">
-                <img src="https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&q=80&w=600" alt="Insta 1">
-                <a href="https://www.instagram.com/africanshoes_/" target="_blank" class="insta-overlay"><i class="fa-brands fa-instagram"></i></a>
-            </div>
-            <div class="insta-post">
-                <img src="https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&q=80&w=600" alt="Insta 2">
-                <a href="https://www.instagram.com/africanshoes_/" target="_blank" class="insta-overlay"><i class="fa-brands fa-instagram"></i></a>
-            </div>
-            <div class="insta-post">
-                <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&q=80&w=600" alt="Insta 3">
-                <a href="https://www.instagram.com/africanshoes_/" target="_blank" class="insta-overlay"><i class="fa-brands fa-instagram"></i></a>
-            </div>
-            <div class="insta-post">
-                <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?auto=format&fit=crop&q=80&w=600" alt="Insta 4">
-                <a href="https://www.instagram.com/africanshoes_/" target="_blank" class="insta-overlay"><i class="fa-brands fa-instagram"></i></a>
-            </div>
+        <div class="insta-grid" id="instaGridContainer">
+            <!-- Dynamic Injection From Admin Gallery -->
         </div>
-        <a href="https://www.instagram.com/africanshoes_/" target="_blank" class="btn btn-gold"><i class="fa-brands fa-instagram"></i> FOLLOW US ON INSTAGRAM</a>
+        <a href="https://www.instagram.com/africanshoes_/" target="_blank" class="btn btn-gold" style="margin-top: 20px;"><i class="fa-brands fa-instagram"></i> <span data-i18n="btnFollowInsta">FOLLOW US ON INSTAGRAM</span></a>
     </section>
 
     <!-- CONTACT US SECTION -->
     <section id="contact" style="background-color: var(--beige);">
         <div class="section-title">
-            <h2>WASILIANA NASI</h2>
-            <p>Tupo tayari kukuhudumia masaa yote.</p>
+            <h2 data-i18n="contactTitle">WASILIANA NASI</h2>
+            <p data-i18n="contactSub">Tupo tayari kukuhudumia masaa yote.</p>
         </div>
         <div style="max-width: 800px; margin: 0 auto; text-align: center;">
             <p style="font-size: 1.2rem; margin-bottom: 20px;"><strong>AFRICAN SHOES DESIGN</strong></p>
-            <p><strong>Simu:</strong> <a href="tel:0755154363">0755154363</a> | <a href="tel:0676716619">0676716619</a> | <a href="tel:0657576696">0657576696</a></p>
-            <p><strong>WhatsApp Oda:</strong> <a href="https://wa.me/255676716619" target="_blank">0676716619</a> / <a href="https://wa.me/255657576696" target="_blank">0657576696</a></p>
+            <p><strong data-i18n="contactPhone">Simu:</strong> <a href="tel:0755154363">0755154363</a> | <a href="tel:0676716619">0676716619</a> | <a href="tel:0657576696">0657576696</a></p>
+            <p><strong data-i18n="contactWa">WhatsApp Oda:</strong> <a href="https://wa.me/255676716619" target="_blank">0676716619</a> / <a href="https://wa.me/255657576696" target="_blank">0657576696</a></p>
             <p><strong>Instagram:</strong> <a href="https://www.instagram.com/africanshoes_/" target="_blank">@africanshoes_</a></p>
-            <p><strong>Location:</strong> Sophia House, Chan'gombe VETA, Dar es Salaam, Tanzania.</p>
+            <p><strong data-i18n="contactLoc">Location:</strong> Sophia House, Chan'gombe VETA, Dar es Salaam, Tanzania.</p>
         </div>
     </section>
 
@@ -1001,20 +1058,20 @@
                         <span class="logo-sub">DESIGN</span>
                     </div>
                 </div>
-                <p>"Viatu vya Ngozi Halisi, Ubora Unaodumu."</p>
+                <p data-i18n="footerSlogan">"Viatu vya Ngozi Halisi, Ubora Unaodumu."</p>
             </div>
             <div class="footer-col">
-                <h4>QUICK LINKS</h4>
+                <h4 data-i18n="footerQuickLinks">QUICK LINKS</h4>
                 <ul class="footer-links">
-                    <li><a href="#home">Nyumbani</a></li>
-                    <li><a href="#shop">Duka la Viatu</a></li>
-                    <li><a href="#about">Kuhusu Sisi</a></li>
-                    <li><a href="#location">Location</a></li>
-                    <li><a href="#contact">Wasiliana Nasi</a></li>
+                    <li><a href="#home" data-i18n="navHome">Nyumbani</a></li>
+                    <li><a href="#shop" data-i18n="navShop">Duka la Viatu</a></li>
+                    <li><a href="#about" data-i18n="navAbout">Kuhusu Sisi</a></li>
+                    <li><a href="#location" data-i18n="navLocation">Location</a></li>
+                    <li><a href="#contact" data-i18n="navContact">Wasiliana Nasi</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>MAWASILIANO</h4>
+                <h4 data-i18n="footerContacts">MAWASILIANO</h4>
                 <p><i class="fa-solid fa-phone"></i> 0755 154 363</p>
                 <p><i class="fa-solid fa-phone"></i> 0676 716 619</p>
                 <p><i class="fa-brands fa-whatsapp"></i> 0657 576 696</p>
@@ -1047,27 +1104,27 @@
                     <p id="modalDesc" style="color: #555; margin-bottom: 15px; font-size: 0.9rem;"></p>
                     
                     <div class="selector-group">
-                        <label for="modalSize">Chagua Size (Available):</label>
+                        <label for="modalSize" data-i18n="lblSelectSize">Chagua Size (Available):</label>
                         <select id="modalSize"></select>
                     </div>
 
                     <div class="selector-group">
-                        <label for="modalColor">Chagua Rangi:</label>
+                        <label for="modalColor" data-i18n="lblSelectColor">Chagua Rangi:</label>
                         <select id="modalColor"></select>
                     </div>
 
                     <div class="selector-group">
-                        <label for="modalQty">Idadi (Quantity):</label>
+                        <label for="modalQty" data-i18n="lblSelectQty">Idadi (Quantity):</label>
                         <input type="number" id="modalQty" value="1" min="1" max="10">
                     </div>
 
-                    <div style="margin-bottom: 15px; font-size: 0.85rem; color: green; font-weight: bold;" id="modalStockStatus">
+                    <div style="margin-bottom: 15px; font-size: 0.85rem; color: green; font-weight: bold;" id="modalStockStatus" data-i18n="lblInStock">
                         In Stock
                     </div>
 
                     <div style="display: flex; gap: 10px; flex-direction: column;">
-                        <button class="btn btn-gold" onclick="window.addToCartFromModal()"><i class="fa-solid fa-cart-plus"></i> ADD TO CART</button>
-                        <button class="btn btn-whatsapp" onclick="window.directWhatsAppOrderFromModal()"><i class="fa-brands fa-whatsapp"></i> ORDER VIA WHATSAPP NOW</button>
+                        <button class="btn btn-gold" onclick="window.addToCartFromModal()"><i class="fa-solid fa-cart-plus"></i> <span data-i18n="btnAddToCart">ADD TO CART</span></button>
+                        <button class="btn btn-whatsapp" onclick="window.directWhatsAppOrderFromModal()"><i class="fa-brands fa-whatsapp"></i> <span data-i18n="btnOrderWaNow">ORDER VIA WHATSAPP NOW</span></button>
                     </div>
                 </div>
             </div>
@@ -1079,43 +1136,43 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('cartModal')">&times;</span>
             <div class="cart-modal-body">
-                <h2 style="color: var(--dark-brown); margin-bottom: 20px;">SHOPPING CART & CHECKOUT</h2>
-                <div id="cartItemsContainer">
+                <h2 style="color: var(--dark-brown); margin-bottom: 15px;" data-i18n="cartHeading">SHOPPING CART & CHECKOUT</h2>
+                <div class="cart-table-wrapper" id="cartItemsContainer">
                     <!-- Dynamic Cart Items Table -->
                 </div>
                 <div class="cart-summary" id="cartTotalSummary">
                     JUMLA: TZS 0
                 </div>
 
-                <hr style="margin: 25px 0;">
+                <hr style="margin: 20px 0;">
 
-                <h3 style="color: var(--dark-brown); margin-bottom: 10px;">TAARIFA ZA MTEJA ZA KUTUMA ODA</h3>
+                <h3 style="color: var(--dark-brown); margin-bottom: 10px;" data-i18n="custHeading">TAARIFA ZA MTEJA ZA KUTUMA ODA</h3>
                 <form id="checkoutForm" class="checkout-form" onsubmit="window.handleCheckout(event)">
                     <div class="form-group">
-                        <label>Jina Yako Kamili *</label>
+                        <label data-i18n="lblFullName">Jina Yako Kamili *</label>
                         <input type="text" id="custName" required placeholder="Mfano: John Doe">
                     </div>
                     <div class="form-group">
-                        <label>Namba ya Simu *</label>
+                        <label data-i18n="lblPhone">Namba ya Simu *</label>
                         <input type="tel" id="custPhone" required placeholder="Mfano: 0755XXXXXX">
                     </div>
                     <div class="form-group">
-                        <label>Njia ya Kupokea Oda *</label>
+                        <label data-i18n="lblDeliveryMethod">Njia ya Kupokea Oda *</label>
                         <select id="deliveryOption" onchange="window.toggleDeliveryField()">
-                            <option value="DELIVERY">DELIVERY - Nataka niletewe/Nisafirishiewe bidhaa</option>
-                            <option value="PICK UP">PICK UP - Nitakuja kuchukua dukani (Sophia House)</option>
+                            <option value="DELIVERY" data-i18n="optDelivery">DELIVERY - Nataka niletewe/Nisafirishiewe bidhaa</option>
+                            <option value="PICK UP" data-i18n="optPickup">PICK UP - Nitakuja kuchukua dukani (Sophia House)</option>
                         </select>
                     </div>
                     <div class="form-group" id="deliveryLocationGroup">
-                        <label>Mahali/Mkoa wa Delivery *</label>
+                        <label data-i18n="lblLocation">Mahali/Mkoa wa Delivery *</label>
                         <input type="text" id="custLocation" placeholder="Mfano: Kinondoni / Arusha / Mwanza">
                     </div>
                     <div class="form-group">
-                        <label>Maelekezo Zaidi (Optional)</label>
+                        <label data-i18n="lblInstructions">Maelekezo Zaidi (Optional)</label>
                         <textarea id="custNotes" rows="2" placeholder="Maelekezo mengine yoyote kwa mchuuzi..."></textarea>
                     </div>
 
-                    <p style="font-size: 0.85rem; color: #666; margin-top: 5px;">
+                    <p style="font-size: 0.82rem; color: #666; margin-top: 5px;" data-i18n="waNote">
                         * Baada ya kubonyeza button hapa chini, WhatsApp itafunguka ikiwa na ujumbe kamili wa oda yako ili kutuma kwa mchuuzi.
                     </p>
 
@@ -1130,9 +1187,9 @@
 
     <!-- ADMIN DASHBOARD MODAL -->
     <div class="modal" id="adminModal">
-        <div class="modal-content" style="max-width: 900px;">
+        <div class="modal-content" style="max-width: 950px;">
             <span class="close-modal" onclick="closeModal('adminModal')">&times;</span>
-            <div style="padding: 30px;">
+            <div style="padding: 25px;">
                 <!-- Admin Auth View -->
                 <div id="adminLoginView">
                     <h2 style="color: var(--dark-brown); text-align: center; margin-bottom: 20px;">ADMIN LOGIN PORTAL</h2>
@@ -1151,7 +1208,7 @@
 
                 <!-- Admin Main Dashboard -->
                 <div id="adminDashboardView" style="display: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid var(--gold); padding-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid var(--gold); padding-bottom: 10px; flex-wrap: wrap; gap: 10px;">
                         <h2>ADMIN MANAGEMENT DASHBOARD</h2>
                         <button onclick="window.adminLogout()" class="btn btn-outline" style="padding: 5px 15px; font-size: 0.8rem;">Logout</button>
                     </div>
@@ -1159,16 +1216,30 @@
                     <!-- UPLOAD OFFICE LOGO SECTION -->
                     <div style="background: var(--beige); padding: 15px; border-radius: 6px; margin-bottom: 25px; border: 1px solid var(--gold);">
                         <h4 style="color: var(--dark-brown); margin-bottom: 10px;"><i class="fa-solid fa-image"></i> BAKULISHA LOGO YA OFISI (HEADER & FOOTER)</h4>
-                        <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
                             <input type="file" id="officeLogoFile" accept="image/*">
                             <button onclick="window.uploadOfficeLogo()" class="btn btn-gold" style="padding: 8px 15px; font-size: 0.85rem;">PAKAZA LOGO</button>
                             <button onclick="window.resetOfficeLogo()" class="btn btn-outline" style="padding: 8px 15px; font-size: 0.85rem; border-color: red; color: red;">RUDISHA TEXT LOGO</button>
                         </div>
                     </div>
 
+                    <!-- UPLOAD INSTAGRAM / FOOTER GALLERY IMAGES SECTION -->
+                    <div style="background: var(--cream); padding: 15px; border-radius: 6px; margin-bottom: 25px; border: 1px solid #ccc;">
+                        <h4 style="color: var(--dark-brown); margin-bottom: 10px;"><i class="fa-brands fa-instagram"></i> WEKA PICHA ZA VIATU CHINI KABISA (INSTAGRAM / GALLERY)</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;" class="admin-form-grid">
+                            <input type="file" id="instaImageFile" accept="image/*" onchange="window.handleInstaImageFileUpload(event)">
+                            <input type="url" id="instaImageUrl" placeholder="AU Weka URL ya Picha (https://...)">
+                        </div>
+                        <button onclick="window.addGalleryImage()" class="btn btn-gold" style="padding: 8px 15px; font-size: 0.85rem;"><i class="fa-solid fa-plus"></i> ONGEZA PICHA KWENYE GALARIA YA CHINI</button>
+                        
+                        <div id="adminGalleryPreview" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                            <!-- Preview admin images -->
+                        </div>
+                    </div>
+
                     <!-- Add / Edit Product Form -->
                     <h3 style="color: var(--dark-brown); margin-bottom: 15px;" id="adminFormTitle">Ongeza Bidhaa Mpya</h3>
-                    <form id="adminProductForm" onsubmit="window.saveProduct(event)" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px;">
+                    <form id="adminProductForm" onsubmit="window.saveProduct(event)" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px;" class="admin-form-grid">
                         <input type="hidden" id="adminProdId">
                         
                         <div class="form-group" style="grid-column: span 2;">
@@ -1197,7 +1268,7 @@
 
                         <div class="form-group" style="grid-column: span 2;">
                             <label>Picha ya Kiatu (JPG/PNG Upload au Image URL) *</label>
-                            <div style="display: flex; gap: 10px; align-items: center;">
+                            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
                                 <input type="file" id="adminProdImageFile" accept="image/*" onchange="window.handleImageFileUpload(event)" style="flex: 1;">
                                 <span style="font-weight: bold; font-size: 0.85rem;">AU URL:</span>
                                 <input type="url" id="adminProdImgUrl" placeholder="https://..." style="flex: 1;">
@@ -1226,7 +1297,7 @@
                     </form>
 
                     <!-- Product Management Table -->
-                    <h3 style="color: var(--dark-brown); margin-bottom: 15px;">Bidhaa Zilizopo Sokoni</h3>
+                    <h3 style="color: var(--dark-brown); margin-bottom: 15px;">Bidhaa Zilizopo Sokoni (<span id="adminProductCount">0</span>)</h3>
                     <div style="overflow-x: auto;">
                         <table class="cart-table" id="adminProductsTable">
                             <thead>
@@ -1268,6 +1339,152 @@
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         const db = getFirestore(app);
+
+        // TRANSLATIONS DICTIONARY (SW / EN)
+        const i18n = {
+            sw: {
+                topBar: `<i class="fa-solid fa-truck-fast"></i> Delivery inafanyika Tanzania nzima na Nje ya nchi kwa gharama za mteja | Sophia House, Chan'gombe VETA`,
+                navHome: "Nyumbani",
+                navShop: "Duka la Viatu",
+                navAbout: "Kuhusu Sisi",
+                navLocation: "Location",
+                navContact: "Wasiliana Nasi",
+                heroTitle: "STEP INTO QUALITY. WALK WITH CONFIDENCE.",
+                heroSub: "Karibu African Shoes Design. Tunakuletea viatu vya ngozi halisi vyenye ubora wa kipekee, comfort na muonekano wa kisasa.",
+                btnShopNow: "SHOP NOW",
+                btnOrderWa: "ORDER VIA WHATSAPP",
+                btnVisitStore: "VISIT OUR STORE",
+                whyTitle: "KWANINI UCHAGUZI WAKO UWE AFRICAN SHOES DESIGN",
+                whySub: "Ubora unaodumu na muonekano wa kifahari kwa kila hatua unayopiga.",
+                feat1Title: "Genuine Leather",
+                feat1Desc: "Tunatumia ngozi halisi 100% inayodumu kwa miaka mingi bila kupoteza ubora wake.",
+                feat2Title: "Premium Quality",
+                feat2Desc: "Kila kiatu kinatengenezwa kwa umakini wa hali ya juu na viwango vya kimataifa.",
+                feat3Title: "Maximum Comfort",
+                feat3Desc: "Inasapoti mguu wako vizuri na kutoa comfort ya hali ya juu siku nzima.",
+                feat4Title: "Easy WhatsApp Ordering",
+                feat4Desc: "Chagua kiatu, weka size yako, na agiza moja kwa moja kupitia WhatsApp kwa urahisi.",
+                shopTitle: "DUKA LA VIATU VYA NGOZI",
+                shopSub: "Tazama mkusanyiko wetu wa viatu vya kifahari na uchague saizi yako.",
+                catAll: "Viatu Vyote",
+                catMenFormal: "Men's Formal",
+                catMenCasual: "Men's Casual",
+                catLoafers: "Leather Loafers",
+                catBoots: "Leather Boots",
+                catWomen: "Women's Leather",
+                catSandals: "Premium Sandals",
+                aboutTitle: "ABOUT AFRICAN SHOES DESIGN",
+                aboutP1: "<strong>African Shoes Design</strong> ni biashara inayojikita katika kutoa viatu vya ngozi halisi vyenye ubora wa hali ya juu, comfort na design za kisasa.",
+                aboutP2: "Dhamira yetu ni kuwapatia wateja viatu vinavyowafanya wajisikie vizuri, waonekane smart na watembee kwa confidence katika shughuli zao za kila siku au matukio maalum.",
+                aboutP3: "Ubora, uaminifu na kuridhika kwa mteja ni kipaumbele chetu namba moja mara zote.",
+                locTitle: "LOCATION YA DUKA LETU",
+                locSub: "Karibu ututembelee dukani Sophia House, Chan'gombe VETA, Dar es Salaam.",
+                locAddressHead: "Eneo la Duka:",
+                locPhoneHead: "Simu za Mawasiliano:",
+                locDelivHead: "Huduma ya Delivery:",
+                locDelivText: "Delivery inafanyika Tanzania nzima na Nje ya nchi kwa gharama za mteja (Gharama zithibitishwe via WhatsApp).",
+                instaTitle: "FOLLOW OUR STYLE ON INSTAGRAM",
+                btnFollowInsta: "FOLLOW US ON INSTAGRAM",
+                contactTitle: "WASILIANA NASI",
+                contactSub: "Tupo tayari kukuhudumia masaa yote.",
+                contactPhone: "Simu:",
+                contactWa: "WhatsApp Oda:",
+                contactLoc: "Location:",
+                footerSlogan: `"Viatu vya Ngozi Halisi, Ubora Unaodumu."`,
+                footerQuickLinks: "QUICK LINKS",
+                footerContacts: "MAWASILIANO",
+                btnView: "TAZAMA",
+                btnOrder: "ODA",
+                lblSelectSize: "Chagua Size (Available):",
+                lblSelectColor: "Chagua Rangi:",
+                lblSelectQty: "Idadi (Quantity):",
+                lblInStock: "In Stock",
+                btnAddToCart: "ADD TO CART",
+                btnOrderWaNow: "ORDER VIA WHATSAPP NOW",
+                cartHeading: "SHOPPING CART & CHECKOUT",
+                custHeading: "TAARIFA ZA MTEJA ZA KUTUMA ODA",
+                lblFullName: "Jina Yako Kamili *",
+                lblPhone: "Namba ya Simu *",
+                lblDeliveryMethod: "Njia ya Kupokea Oda *",
+                optDelivery: "DELIVERY - Nataka niletewe/Nisafirishiewe bidhaa",
+                optPickup: "PICK UP - Nitakuja kuchukua dukani (Sophia House)",
+                lblLocation: "Mahali/Mkoa wa Delivery *",
+                lblInstructions: "Maelekezo Zaidi (Optional)",
+                waNote: "* Baada ya kubonyeza button hapa chini, WhatsApp itafunguka ikiwa na ujumbe kamili wa oda yako ili kutuma kwa mchuuzi."
+            },
+            en: {
+                topBar: `<i class="fa-solid fa-truck-fast"></i> Worldwide & Tanzania Delivery Available | Sophia House, Chan'gombe VETA`,
+                navHome: "Home",
+                navShop: "Shoe Store",
+                navAbout: "About Us",
+                navLocation: "Location",
+                navContact: "Contact Us",
+                heroTitle: "STEP INTO QUALITY. WALK WITH CONFIDENCE.",
+                heroSub: "Welcome to African Shoes Design. We provide genuine leather shoes with premium comfort and luxury design.",
+                btnShopNow: "SHOP NOW",
+                btnOrderWa: "ORDER VIA WHATSAPP",
+                btnVisitStore: "VISIT OUR STORE",
+                whyTitle: "WHY CHOOSE AFRICAN SHOES DESIGN",
+                whySub: "Long-lasting quality and luxury elegance for every step you take.",
+                feat1Title: "Genuine Leather",
+                feat1Desc: "100% genuine leather crafted to last for years without losing premium finish.",
+                feat2Title: "Premium Quality",
+                feat2Desc: "Handcrafted with supreme precision meeting international footwear standards.",
+                feat3Title: "Maximum Comfort",
+                feat3Desc: "Ergonomic inner support for day-long maximum foot comfort.",
+                feat4Title: "Easy WhatsApp Ordering",
+                feat4Desc: "Pick your shoes, choose size, and order directly on WhatsApp seamlessly.",
+                shopTitle: "GENUINE LEATHER COLLECTION",
+                shopSub: "Browse our luxury collection and choose your perfect shoe size.",
+                catAll: "All Shoes",
+                catMenFormal: "Men's Formal",
+                catMenCasual: "Men's Casual",
+                catLoafers: "Leather Loafers",
+                catBoots: "Leather Boots",
+                catWomen: "Women's Leather",
+                catSandals: "Premium Sandals",
+                aboutTitle: "ABOUT AFRICAN SHOES DESIGN",
+                aboutP1: "<strong>African Shoes Design</strong> specializes in crafting high-grade genuine leather footwear offering peak comfort and modern aesthetics.",
+                aboutP2: "Our mission is to empower customers with shoes that evoke elegance, prestige, and confidence for work and special occasions.",
+                aboutP3: "Uncompromised quality, integrity, and absolute customer satisfaction are our top priorities.",
+                locTitle: "STORE LOCATION",
+                locSub: "Visit our physical store at Sophia House, Chan'gombe VETA, Dar es Salaam.",
+                locAddressHead: "Store Address:",
+                locPhoneHead: "Phone Numbers:",
+                locDelivHead: "Delivery Service:",
+                locDelivText: "Countrywide and regional delivery available at customer cost (Confirm rates via WhatsApp).",
+                instaTitle: "FOLLOW OUR STYLE ON INSTAGRAM",
+                btnFollowInsta: "FOLLOW US ON INSTAGRAM",
+                contactTitle: "CONTACT US",
+                contactSub: "We are ready to assist you 24/7.",
+                contactPhone: "Phone:",
+                contactWa: "WhatsApp Order:",
+                contactLoc: "Location:",
+                footerSlogan: `"Genuine Leather Shoes, Enduring Quality."`,
+                footerQuickLinks: "QUICK LINKS",
+                footerContacts: "CONTACT US",
+                btnView: "VIEW",
+                btnOrder: "ORDER",
+                lblSelectSize: "Select Size (Available):",
+                lblSelectColor: "Select Color:",
+                lblSelectQty: "Quantity:",
+                lblInStock: "In Stock",
+                btnAddToCart: "ADD TO CART",
+                btnOrderWaNow: "ORDER VIA WHATSAPP NOW",
+                cartHeading: "SHOPPING CART & CHECKOUT",
+                custHeading: "CUSTOMER ORDER DETAILS",
+                lblFullName: "Your Full Name *",
+                lblPhone: "Phone Number *",
+                lblDeliveryMethod: "Delivery Option *",
+                optDelivery: "DELIVERY - Ship to my address/location",
+                optPickup: "PICK UP - Store pick up at Sophia House",
+                lblLocation: "Delivery Address/Region *",
+                lblInstructions: "Additional Instructions (Optional)",
+                waNote: "* Clicking below will open WhatsApp auto-populated with your complete order details to send to our store manager."
+            }
+        };
+
+        let currentLang = localStorage.getItem('asd_lang') || 'sw';
 
         const DEFAULT_PRODUCTS = [
             {
@@ -1333,16 +1550,41 @@
         ];
 
         let products = [];
+        let galleryImages = JSON.parse(localStorage.getItem('asd_gallery_images')) || [];
         let cart = JSON.parse(localStorage.getItem('asd_cart')) || [];
         let activeFilter = 'all';
         let currentModalProduct = null;
         let uploadedBase64Image = "";
+        let uploadedInstaBase64Image = "";
         let officeLogoDataUrl = localStorage.getItem('asd_office_logo') || "";
 
         const ADMIN_EMAIL = "eprazil@gmail.com";
         const ADMIN_PASS = "1995";
 
-        // Fetch Products from Firestore
+        // DYNAMIC LANGUAGE SWITCHING FUNCTION
+        window.toggleLanguage = function() {
+            currentLang = currentLang === 'sw' ? 'en' : 'sw';
+            localStorage.setItem('asd_lang', currentLang);
+            applyLanguage();
+        }
+
+        function applyLanguage() {
+            document.getElementById('langLabel').innerText = currentLang === 'sw' ? 'EN' : 'SW';
+            const langData = i18n[currentLang];
+
+            document.getElementById('topBarText').innerHTML = langData.topBar;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (langData[key]) {
+                    el.innerHTML = langData[key];
+                }
+            });
+
+            renderProducts();
+        }
+
+        // Fetch Products from Firestore & LocalStorage Backup
         async function fetchProducts() {
             try {
                 const querySnapshot = await getDocs(collection(db, "products"));
@@ -1351,27 +1593,43 @@
                     products.push({ firestoreId: docSnap.id, ...docSnap.data() });
                 });
 
+                // Check LocalStorage for custom offline products added by admin
+                const localProds = JSON.parse(localStorage.getItem('asd_local_products')) || [];
+                localProds.forEach(lp => {
+                    if (!products.some(p => p.firestoreId === lp.firestoreId)) {
+                        products.push(lp);
+                    }
+                });
+
                 // If Firestore is empty, seed default products
                 if (products.length === 0) {
                     for (let p of DEFAULT_PRODUCTS) {
-                        await addDoc(collection(db, "products"), {
-                            id: p.id,
-                            title: p.title,
-                            price: p.price,
-                            category: p.category,
-                            image: p.image,
-                            sizes: p.sizes,
-                            colors: p.colors,
-                            desc: p.desc
-                        });
+                        try {
+                            const docRef = await addDoc(collection(db, "products"), {
+                                id: p.id,
+                                title: p.title,
+                                price: p.price,
+                                category: p.category,
+                                image: p.image,
+                                sizes: p.sizes,
+                                colors: p.colors,
+                                desc: p.desc
+                            });
+                            products.push({ firestoreId: docRef.id, ...p });
+                        } catch(e) {
+                            products.push({ firestoreId: 'local_' + Date.now() + Math.random(), ...p });
+                        }
                     }
-                    return fetchProducts();
                 }
 
                 renderProducts();
                 renderAdminProductsTable();
             } catch (error) {
                 console.error("Error fetching products: ", error);
+                const localProds = JSON.parse(localStorage.getItem('asd_local_products')) || DEFAULT_PRODUCTS;
+                products = localProds;
+                renderProducts();
+                renderAdminProductsTable();
             }
         }
 
@@ -1383,10 +1641,11 @@
         function renderProducts() {
             const container = document.getElementById('productsGrid');
             container.innerHTML = '';
+            const t = i18n[currentLang];
 
             const filtered = activeFilter === 'all' 
                 ? products 
-                : products.filter(p => p.category.toLowerCase().includes(activeFilter.toLowerCase()) || activeFilter.toLowerCase().includes(p.category.toLowerCase()));
+                : products.filter(p => p.category && p.category.toLowerCase().includes(activeFilter.toLowerCase()) || activeFilter.toLowerCase().includes((p.category||'').toLowerCase()));
 
             if (filtered.length === 0) {
                 container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #777;">Hakuna bidhaa kwenye kundi hili kwa sasa.</p>`;
@@ -1403,10 +1662,10 @@
                     </div>
                     <div class="product-info">
                         <div class="product-title" onclick="openProductModal('${product.firestoreId}')" style="cursor:pointer;">${product.title}</div>
-                        <div class="product-price">TZS ${product.price.toLocaleString()}</div>
+                        <div class="product-price">TZS ${(product.price || 0).toLocaleString()}</div>
                         <div class="product-actions">
-                            <button class="btn btn-gold" onclick="openProductModal('${product.firestoreId}')"><i class="fa-solid fa-eye"></i> TAZAMA</button>
-                            <button class="btn btn-whatsapp" onclick="quickWhatsAppOrder('${product.firestoreId}')"><i class="fa-brands fa-whatsapp"></i> ODA</button>
+                            <button class="btn btn-gold" onclick="openProductModal('${product.firestoreId}')"><i class="fa-solid fa-eye"></i> ${t.btnView}</button>
+                            <button class="btn btn-whatsapp" onclick="quickWhatsAppOrder('${product.firestoreId}')"><i class="fa-brands fa-whatsapp"></i> ${t.btnOrder}</button>
                         </div>
                     </div>
                 `;
@@ -1414,9 +1673,78 @@
             });
         }
 
+        function renderGallery() {
+            const container = document.getElementById('instaGridContainer');
+            const adminPreview = document.getElementById('adminGalleryPreview');
+            container.innerHTML = '';
+            adminPreview.innerHTML = '';
+
+            if (galleryImages.length === 0) {
+                container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #777;">Bado hujaweka picha za Instagram. Zitaonyeshwa hapa pindi unapoweka kwenye Admin Portal.</p>`;
+                adminPreview.innerHTML = `<p style="color: #888; font-size: 0.85rem;">Hakuna picha zilizowekwa kwenye galaria kwa sasa.</p>`;
+                return;
+            }
+
+            galleryImages.forEach((imgUrl, index) => {
+                const post = document.createElement('div');
+                post.className = 'insta-post';
+                post.innerHTML = `
+                    <img src="${imgUrl}" alt="Gallery Image ${index + 1}">
+                    <a href="https://www.instagram.com/africanshoes_/" target="_blank" class="insta-overlay"><i class="fa-brands fa-instagram"></i></a>
+                `;
+                container.appendChild(post);
+
+                const prev = document.createElement('div');
+                prev.style.position = 'relative';
+                prev.innerHTML = `
+                    <img src="${imgUrl}" style="width: 75px; height: 75px; object-fit: cover; border-radius: 4px; border: 1px solid var(--gold);">
+                    <button onclick="window.removeGalleryImage(${index})" style="position: absolute; top: -5px; right: -5px; background: red; color: white; border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; font-size: 11px;">&times;</button>
+                `;
+                adminPreview.appendChild(prev);
+            });
+        }
+
+        window.handleInstaImageFileUpload = function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedInstaBase64Image = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        window.addGalleryImage = function() {
+            const urlInput = document.getElementById('instaImageUrl').value;
+            const finalImg = uploadedInstaBase64Image || urlInput;
+
+            if (!finalImg) {
+                alert("Tafadhali chagua picha kutoka kwa simu/kompyuta au weka URL ya picha.");
+                return;
+            }
+
+            galleryImages.push(finalImg);
+            localStorage.setItem('asd_gallery_images', JSON.stringify(galleryImages));
+            renderGallery();
+
+            document.getElementById('instaImageUrl').value = '';
+            document.getElementById('instaImageFile').value = '';
+            uploadedInstaBase64Image = "";
+            alert("Picha mpya imeongezwa kwenye Galaria ya chini kikamilifu!");
+        }
+
+        window.removeGalleryImage = function(index) {
+            if (confirm("Unataka kufuta picha hii kwenye Galaria?")) {
+                galleryImages.splice(index, 1);
+                localStorage.setItem('asd_gallery_images', JSON.stringify(galleryImages));
+                renderGallery();
+            }
+        }
+
         function renderLogo() {
             if (officeLogoDataUrl) {
-                const logoHtml = `<img src="${officeLogoDataUrl}" alt="African Shoes Design Logo" style="height: 50px; width: auto; object-fit: contain;">`;
+                const logoHtml = `<img src="${officeLogoDataUrl}" alt="African Shoes Design Logo">`;
                 document.getElementById('headerLogoContainer').innerHTML = logoHtml;
                 document.getElementById('footerLogoContainer').innerHTML = logoHtml;
             } else {
@@ -1446,12 +1774,12 @@
 
             document.getElementById('modalImg').src = product.image;
             document.getElementById('modalTitle').innerText = product.title;
-            document.getElementById('modalPrice').innerText = `TZS ${product.price.toLocaleString()}`;
-            document.getElementById('modalDesc').innerText = product.desc;
+            document.getElementById('modalPrice').innerText = `TZS ${(product.price || 0).toLocaleString()}`;
+            document.getElementById('modalDesc').innerText = product.desc || "";
 
             const sizeSelect = document.getElementById('modalSize');
             sizeSelect.innerHTML = '';
-            product.sizes.forEach(sz => {
+            (product.sizes || []).forEach(sz => {
                 const opt = document.createElement('option');
                 opt.value = sz;
                 opt.innerText = `Size ${sz}`;
@@ -1460,7 +1788,7 @@
 
             const colorSelect = document.getElementById('modalColor');
             colorSelect.innerHTML = '';
-            product.colors.forEach(clr => {
+            (product.colors || []).forEach(clr => {
                 const opt = document.createElement('option');
                 opt.value = clr;
                 opt.innerText = clr;
@@ -1572,7 +1900,7 @@ Hello African Shoes Design, I would like to place this order directly. Please co
                             <small>Size: ${item.size} | Color: ${item.color}</small>
                         </td>
                         <td>
-                            <input type="number" value="${item.qty}" min="1" style="width:50px; padding:4px;" onchange="updateCartQty(${idx}, this.value)">
+                            <input type="number" value="${item.qty}" min="1" style="width:45px; padding:4px;" onchange="updateCartQty(${idx}, this.value)">
                         </td>
                         <td>TZS ${subtotal.toLocaleString()}</td>
                         <td><button onclick="removeFromCart(${idx})" style="color:red; border:none; background:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button></td>
@@ -1672,6 +2000,7 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
                 document.getElementById('adminLoginView').style.display = 'none';
                 document.getElementById('adminDashboardView').style.display = 'block';
                 renderAdminProductsTable();
+                renderGallery();
             } else {
                 alert("Email au Password siyo sahihi! Tafadhali jaribu tena.");
             }
@@ -1754,21 +2083,40 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
 
             try {
                 if (editFirestoreId) {
-                    const docRef = doc(db, "products", editFirestoreId);
-                    await updateDoc(docRef, productData);
-                    alert("Bidhaa imebadilishwa na kuhifadhiwa kwenye mtandao!");
+                    if (editFirestoreId.startsWith('local_')) {
+                        const idx = products.findIndex(p => p.firestoreId === editFirestoreId);
+                        if (idx > -1) products[idx] = { firestoreId: editFirestoreId, ...productData };
+                    } else {
+                        const docRef = doc(db, "products", editFirestoreId);
+                        await updateDoc(docRef, productData);
+                        const idx = products.findIndex(p => p.firestoreId === editFirestoreId);
+                        if (idx > -1) products[idx] = { firestoreId: editFirestoreId, ...productData };
+                    }
+                    alert("Bidhaa imebadilishwa na kuhifadhiwa kikamilifu!");
                 } else {
                     const newId = products.length > 0 ? Math.max(...products.map(p => p.id || 0)) + 1 : 1;
                     productData.id = newId;
-                    await addDoc(collection(db, "products"), productData);
-                    alert("Bidhaa mpya imeongezwa kwenye mtandao!");
+                    
+                    try {
+                        const docRef = await addDoc(collection(db, "products"), productData);
+                        products.push({ firestoreId: docRef.id, ...productData });
+                    } catch (err) {
+                        const localId = 'local_' + Date.now();
+                        const localItem = { firestoreId: localId, ...productData };
+                        products.push(localItem);
+                        const existingLocals = JSON.parse(localStorage.getItem('asd_local_products')) || [];
+                        existingLocals.push(localItem);
+                        localStorage.setItem('asd_local_products', JSON.stringify(existingLocals));
+                    }
+                    alert("Bidhaa mpya imeongezwa na kuonekana kwenye duka na admin!");
                 }
 
                 resetAdminForm();
-                fetchProducts();
+                renderProducts();
+                renderAdminProductsTable();
             } catch (error) {
                 console.error("Error saving product: ", error);
-                alert("Hitilafu imetokea wakati wa kuhifadhi.");
+                alert("Hitilafu imetokea wakati wa kuhifadhi bidhaa.");
             }
         }
 
@@ -1792,20 +2140,31 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
                 catCustom.style.display = 'block';
             }
 
-            document.getElementById('adminProdImgUrl').value = product.image.startsWith('data:') ? '' : product.image;
-            uploadedBase64Image = product.image.startsWith('data:') ? product.image : '';
+            document.getElementById('adminProdImgUrl').value = (product.image && product.image.startsWith('data:')) ? '' : (product.image || '');
+            uploadedBase64Image = (product.image && product.image.startsWith('data:')) ? product.image : '';
 
-            document.getElementById('adminProdSizes').value = product.sizes.join(', ');
-            document.getElementById('adminProdColors').value = product.colors.join(', ');
-            document.getElementById('adminProdDesc').value = product.desc;
+            document.getElementById('adminProdSizes').value = (product.sizes || []).join(', ');
+            document.getElementById('adminProdColors').value = (product.colors || []).join(', ');
+            document.getElementById('adminProdDesc').value = product.desc || '';
+            
+            document.getElementById('adminProductForm').scrollIntoView({ behavior: 'smooth' });
         }
 
         window.deleteProduct = async function(firestoreId) {
             if (confirm("Je, una uhakika unataka kufuta bidhaa hii kikamilifu?")) {
                 try {
-                    await deleteDoc(doc(db, "products", firestoreId));
-                    fetchProducts();
-                    alert("Bidhaa imefutwa!");
+                    if (!firestoreId.startsWith('local_')) {
+                        await deleteDoc(doc(db, "products", firestoreId));
+                    }
+                    products = products.filter(p => p.firestoreId !== firestoreId);
+                    
+                    const existingLocals = JSON.parse(localStorage.getItem('asd_local_products')) || [];
+                    const updatedLocals = existingLocals.filter(p => p.firestoreId !== firestoreId);
+                    localStorage.setItem('asd_local_products', JSON.stringify(updatedLocals));
+
+                    renderProducts();
+                    renderAdminProductsTable();
+                    alert("Bidhaa imefutwa kikamilifu!");
                 } catch (error) {
                     console.error("Error deleting product: ", error);
                 }
@@ -1822,16 +2181,23 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
 
         function renderAdminProductsTable() {
             const tbody = document.querySelector('#adminProductsTable tbody');
+            const countSpan = document.getElementById('adminProductCount');
             tbody.innerHTML = '';
+            countSpan.innerText = products.length;
+
+            if (products.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#777;">Hakuna bidhaa kwenye mfumo.</td></tr>`;
+                return;
+            }
 
             products.forEach(p => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td><img src="${p.image}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;"></td>
+                    <td><img src="${p.image}" style="width:45px; height:45px; object-fit:cover; border-radius:4px;"></td>
                     <td><strong>${p.title}</strong></td>
                     <td>${p.category}</td>
-                    <td>TZS ${p.price.toLocaleString()}</td>
-                    <td>${p.sizes.join(', ')}</td>
+                    <td>TZS ${(p.price || 0).toLocaleString()}</td>
+                    <td>${(p.sizes || []).join(', ')}</td>
                     <td>
                         <button onclick="window.editProduct('${p.firestoreId}')" style="color:blue; border:none; background:none; cursor:pointer; margin-right:10px;"><i class="fa-solid fa-pen"></i> Edit</button>
                         <button onclick="window.deleteProduct('${p.firestoreId}')" style="color:red; border:none; background:none; cursor:pointer;"><i class="fa-solid fa-trash"></i> Futa</button>
@@ -1858,7 +2224,9 @@ Hello African Shoes Design, I would like to place this order. Please confirm ava
         document.addEventListener('DOMContentLoaded', () => {
             renderLogo();
             fetchProducts();
+            renderGallery();
             updateCartBadge();
+            applyLanguage();
         });
     </script>
 </body>
