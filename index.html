@@ -125,7 +125,6 @@
             color: var(--gold);
         }
 
-        /* LANGUAGE SWITCHER STYLING */
         .lang-switch-btn {
             background: transparent;
             border: 1px solid var(--gold);
@@ -1230,11 +1229,11 @@
                         <h4 style="color: var(--dark-brown); margin-bottom: 10px;"><i class="fa-solid fa-images"></i> ONGEZA PICHA KWENYE GALARIA / INSTAGRAM YA CHINI</h4>
                         <div style="display: grid; gap: 10px; margin-bottom: 10px;">
                             <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                                <input type="file" id="galleryUploadFile" accept="image/*" style="flex:1;">
+                                <input type="file" id="galleryUploadFile" accept="image/*" style="flex:1;" onchange="window.handleGalleryFileUpload(event)">
                                 <button onclick="window.addGalleryImageFromFile()" class="btn btn-gold" style="padding: 8px 15px; font-size: 0.85rem;">PAKIA PICHA</button>
                             </div>
                             <div style="display: flex; gap: 10px; align-items: center;">
-                                <input type="url" id="galleryUrlInput" placeholder="Auweke Image URL (https://...)" style="flex:1; padding:8px; border:1px solid #ccc; border-radius:4px;">
+                                <input type="url" id="galleryUrlInput" placeholder="Au weka Image URL (https://...)" style="flex:1; padding:8px; border:1px solid #ccc; border-radius:4px;">
                                 <button onclick="window.addGalleryImageFromURL()" class="btn btn-gold" style="padding: 8px 15px; font-size: 0.85rem;">WEKA URL</button>
                             </div>
                         </div>
@@ -1274,8 +1273,8 @@
                         </div>
 
                         <div class="form-group" style="grid-column: span 2;">
-                            <label>Picha ya Kiatu (JPG/PNG Upload au Image URL) *</label>
-                            <div style="display: flex; gap: 10px; align-items: center;">
+                            <label>Picha ya Kiatu (Pakia Faili yoyote au Weka URL) *</label>
+                            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
                                 <input type="file" id="adminProdImageFile" accept="image/*" onchange="window.handleImageFileUpload(event)" style="flex: 1;">
                                 <span style="font-weight: bold; font-size: 0.85rem;">AU URL:</span>
                                 <input type="url" id="adminProdImgUrl" placeholder="https://..." style="flex: 1;">
@@ -1415,9 +1414,9 @@
         let activeFilter = 'all';
         let currentModalProduct = null;
         let uploadedBase64Image = "";
+        let galleryUploadedBase64Image = "";
         let officeLogoDataUrl = localStorage.getItem('asd_office_logo') || "";
 
-        // Default Gallery Images if none added by admin
         const DEFAULT_GALLERY = [
             "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&q=80&w=600",
             "https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&q=80&w=600",
@@ -1661,6 +1660,45 @@
             });
         }
 
+        window.handleGalleryFileUpload = function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    galleryUploadedBase64Image = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        window.addGalleryImageFromFile = function() {
+            if (galleryUploadedBase64Image) {
+                galleryImages.push(galleryUploadedBase64Image);
+                localStorage.setItem('asd_gallery', JSON.stringify(galleryImages));
+                document.getElementById('galleryUploadFile').value = '';
+                galleryUploadedBase64Image = "";
+                renderGallery();
+                renderAdminGalleryList();
+                alert("Picha imepakiwa na kuongezwa kwenye galaria!");
+            } else {
+                const fileInput = document.getElementById('galleryUploadFile');
+                if (fileInput.files && fileInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        galleryImages.push(e.target.result);
+                        localStorage.setItem('asd_gallery', JSON.stringify(galleryImages));
+                        fileInput.value = '';
+                        renderGallery();
+                        renderAdminGalleryList();
+                        alert("Picha imepakiwa na kuongezwa kwenye galaria!");
+                    };
+                    reader.readAsDataURL(fileInput.files[0]);
+                } else {
+                    alert("Tafadhali chagua picha kwanza.");
+                }
+            }
+        }
+
         window.addGalleryImageFromURL = function() {
             const urlInput = document.getElementById('galleryUrlInput');
             const url = urlInput.value.trim();
@@ -1673,24 +1711,6 @@
                 alert("Picha imeongezwa kwenye galaria kikamilifu!");
             } else {
                 alert("Tafadhali weka link sahihi ya picha.");
-            }
-        }
-
-        window.addGalleryImageFromFile = function() {
-            const fileInput = document.getElementById('galleryUploadFile');
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    galleryImages.push(e.target.result);
-                    localStorage.setItem('asd_gallery', JSON.stringify(galleryImages));
-                    fileInput.value = '';
-                    renderGallery();
-                    renderAdminGalleryList();
-                    alert("Picha imepakiwa na kuongezwa kwenye galaria!");
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            } else {
-                alert("Tafadhali chagua picha kwanza.");
             }
         }
 
