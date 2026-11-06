@@ -870,6 +870,50 @@
                 padding-bottom: 10px;
             }
         }
+
+        /* ===== ADDED ENHANCEMENTS: SEARCH, NEW DESIGNS, THEMES & VISITOR INSIGHTS ===== */
+        .shoe-search-wrap{max-width:760px;margin:0 auto 24px;position:relative;z-index:20}
+        .shoe-search-wrap input{width:100%;padding:16px 52px 16px 18px;border:2px solid var(--gold);border-radius:12px;font:inherit;font-size:1rem;background:var(--white);color:var(--black);box-shadow:var(--shadow);outline:none}
+        .shoe-search-wrap input:focus{border-color:var(--gold-hover);box-shadow:0 0 0 4px rgba(212,175,55,.15)}
+        .shoe-search-icon{position:absolute;right:18px;top:16px;color:var(--gold-hover);font-size:1.2rem}
+        .shoe-search-results{display:none;position:absolute;top:calc(100% + 7px);left:0;right:0;background:var(--white);border:1px solid var(--dark-beige);border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.18);max-height:380px;overflow-y:auto}
+        .shoe-search-result{display:flex;align-items:center;gap:13px;padding:10px 14px;border-bottom:1px solid #eee;cursor:pointer}
+        .shoe-search-result:hover{background:var(--beige)}
+        .shoe-search-result img{width:58px;height:58px;object-fit:contain;border-radius:6px;background:var(--beige)}
+        .shoe-search-result strong{display:block;color:var(--dark-brown)}
+        .shoe-search-result small{color:var(--gray-text)}
+        .new-shoes-section{background:linear-gradient(135deg,var(--beige),var(--cream));overflow:hidden}
+        .new-shoes-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;max-width:1300px;margin:0 auto 25px;flex-wrap:wrap}
+        .new-shoes-controls{display:flex;gap:10px}
+        .new-shoes-controls button{width:46px;height:46px;border:1px solid var(--gold);border-radius:50%;background:var(--white);color:var(--dark-brown);font-size:1.1rem;cursor:pointer}
+        .new-shoes-controls button:hover{background:var(--gold)}
+        .new-shoes-track{max-width:1300px;margin:auto;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(250px, 1fr);grid-auto-columns: minmax(250px, 300px);gap:22px;overflow-x:auto;scroll-behavior:smooth;padding:8px 3px 22px;scroll-snap-type:x mandatory}
+        .new-shoe-card{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);scroll-snap-align:start;min-width:0}
+        .new-shoe-card img{width:100%;height:230px;object-fit:cover;background:var(--beige)}
+        .new-shoe-info{padding:17px}
+        .new-shoe-tag{display:inline-block;background:var(--gold);color:#17120b;padding:4px 9px;border-radius:20px;font-size:.72rem;font-weight:800;margin-bottom:8px}
+        .new-shoe-info h3{font-size:1.05rem;color:var(--dark-brown);margin-bottom:7px}
+        .new-shoe-info p{font-size:.88rem;color:var(--gray-text);margin-bottom:12px}
+        .new-shoe-price{font-weight:800;color:var(--gold-hover);margin-bottom:12px}
+        .admin-extra-panel{background:var(--beige);padding:18px;border:1px solid var(--gold);border-radius:8px;margin:0 0 25px}
+        .admin-extra-panel input,.admin-extra-panel select,.admin-extra-panel textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:5px;font:inherit}
+        .admin-extra-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+        .theme-options{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+        .theme-choice{border:2px solid transparent;border-radius:8px;padding:9px 12px;cursor:pointer;background:white;font-weight:700}
+        .theme-choice.active{border-color:#111;outline:2px solid var(--gold)}
+        .theme-dot{display:inline-block;width:13px;height:13px;border-radius:50%;vertical-align:middle;margin-right:6px}
+        .visitor-consent{position:fixed;left:18px;bottom:18px;z-index:2500;max-width:370px;background:var(--white);border:1px solid var(--gold);border-radius:10px;padding:15px;box-shadow:var(--shadow);display:none}
+        .visitor-consent p{font-size:.83rem;color:var(--gray-text);margin-bottom:10px}
+        .visitor-consent-actions{display:flex;gap:8px;flex-wrap:wrap}
+        .visitor-consent-actions button{padding:8px 11px;border:0;border-radius:5px;cursor:pointer;font-weight:700}
+        .visitor-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:12px 0}
+        .visitor-stat{background:white;border:1px solid var(--dark-beige);border-radius:7px;padding:14px}
+        .visitor-stat strong{display:block;font-size:1.5rem;color:var(--gold-hover)}
+        .visitor-table-wrap{overflow:auto;max-height:350px;background:white;border-radius:6px}
+        .visitor-table{width:100%;border-collapse:collapse;min-width:500px}
+        .visitor-table th,.visitor-table td{padding:10px;border-bottom:1px solid #eee;text-align:left;font-size:.85rem}
+        @media(max-width:600px){.admin-extra-grid{grid-template-columns:1fr}.new-shoes-track{grid-auto-columns:minmax(235px,80vw)}.visitor-consent{left:10px;right:10px;bottom:10px;max-width:none}}
+
     </style>
 </head>
 <body>
@@ -893,6 +937,7 @@
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="nav-link" data-translate="navHome">Nyumbani</a></li>
                 <li><a href="#shop" class="nav-link" data-translate="navShop">Duka la Viatu</a></li>
+                <li><a href="#newShoes" class="nav-link">New Designs</a></li>
                 <li><a href="#about" class="nav-link" data-translate="navAbout">Kuhusu Sisi</a></li>
                 <li><a href="#location" class="nav-link">Location</a></li>
                 <li><a href="#contact" class="nav-link" data-translate="navContact">Wasiliana Nasi</a></li>
@@ -964,6 +1009,13 @@
             <p data-translate="shopSub">Tazama mkusanyiko wetu wa viatu vya kifahari na uchague saizi yako.</p>
         </div>
 
+        <!-- LIVE SHOE SEARCH: matches any typed word/partial word -->
+        <div class="shoe-search-wrap">
+            <input type="search" id="shoeSearchInput" autocomplete="off" placeholder="Tafuta aina ya kiatu unachotaka... (mfano Loafers, Boots, Formal)" aria-label="Tafuta viatu">
+            <i class="fa-solid fa-magnifying-glass shoe-search-icon"></i>
+            <div id="shoeSearchResults" class="shoe-search-results" role="listbox"></div>
+        </div>
+
         <!-- Filter Bar -->
         <div class="filter-bar" id="categoryFilters">
             <button class="filter-btn active" onclick="filterProducts('all')" data-translate="filterAll">Viatu Vyote</button>
@@ -979,6 +1031,22 @@
         <div class="products-grid" id="productsGrid">
             <!-- Dynamic Injection -->
         </div>
+    </section>
+
+    <!-- NEW SHOE DESIGNS: managed by admin and navigable horizontally -->
+    <section id="newShoes" class="new-shoes-section">
+        <div class="section-title">
+            <h2>NEW SHOES DESIGNS</h2>
+            <p>Gundua design mpya za viatu zilizoongezwa hivi karibuni.</p>
+        </div>
+        <div class="new-shoes-heading">
+            <div><strong style="color:var(--dark-brown);">DESIGN MPYA ZA AFRICAN SHOES</strong><p style="color:var(--gray-text);font-size:.88rem;">Swipe au tumia mishale kuona design nyingine.</p></div>
+            <div class="new-shoes-controls">
+                <button type="button" aria-label="Zilizotangulia" onclick="window.scrollNewShoes(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                <button type="button" aria-label="Zinazofuata" onclick="window.scrollNewShoes(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+        <div id="newShoesTrack" class="new-shoes-track"><p style="padding:20px;color:#777;">Design mpya zitaonekana hapa.</p></div>
     </section>
 
     <!-- ABOUT US SECTION -->
@@ -1245,6 +1313,44 @@
                         <button onclick="window.adminLogout()" class="btn btn-outline" style="padding: 5px 15px; font-size: 0.8rem;">Logout</button>
                     </div>
 
+                    <!-- WEBSITE COLOUR THEME MANAGER -->
+                    <div class="admin-extra-panel">
+                        <h4 style="color:var(--dark-brown);"><i class="fa-solid fa-palette"></i> BADILI RANGI ZA WEBSITE NZIMA</h4>
+                        <p style="font-size:.85rem;color:#666;margin-top:5px;">Chagua theme; mabadiliko yataonekana kwa wageni wote.</p>
+                        <div class="theme-options" id="adminThemeOptions">
+                            <button type="button" class="theme-choice" onclick="window.setWebsiteTheme('classic')"><span class="theme-dot" style="background:#D4AF37"></span>Gold Luxury</button>
+                            <button type="button" class="theme-choice" onclick="window.setWebsiteTheme('ocean')"><span class="theme-dot" style="background:#168AAD"></span>Ocean Blue</button>
+                            <button type="button" class="theme-choice" onclick="window.setWebsiteTheme('emerald')"><span class="theme-dot" style="background:#2E8B57"></span>Emerald</button>
+                            <button type="button" class="theme-choice" onclick="window.setWebsiteTheme('rose')"><span class="theme-dot" style="background:#C65D7B"></span>Rose</button>
+                            <button type="button" class="theme-choice" onclick="window.setWebsiteTheme('purple')"><span class="theme-dot" style="background:#7952B3"></span>Purple</button>
+                        </div>
+                    </div>
+
+                    <!-- NEW SHOE DESIGN UPLOAD -->
+                    <div class="admin-extra-panel">
+                        <h4 style="color:var(--dark-brown);margin-bottom:10px;"><i class="fa-solid fa-wand-magic-sparkles"></i> PAKIA NEW SHOES DESIGN</h4>
+                        <form id="newShoeForm" onsubmit="window.saveNewShoe(event)" class="admin-extra-grid">
+                            <div><label>Jina la design *</label><input id="newShoeTitle" required placeholder="Mfano: New Italian Loafers"></div>
+                            <div><label>Bei (TZS)</label><input id="newShoePrice" type="number" min="0" placeholder="120000"></div>
+                            <div style="grid-column:1/-1"><label>Picha ya kiatu *</label><input id="newShoeFile" type="file" accept="image/*" onchange="window.handleNewShoeImage(event)"><input id="newShoeUrl" type="url" placeholder="Au weka image URL (https://...)" style="margin-top:7px"></div>
+                            <div style="grid-column:1/-1"><label>Maelezo ya design</label><textarea id="newShoeDesc" rows="2" placeholder="Eleza design hii mpya..."></textarea></div>
+                            <div style="grid-column:1/-1"><button class="btn btn-gold" type="submit"><i class="fa-solid fa-upload"></i> PAKIA DESIGN MPYA</button></div>
+                        </form>
+                        <div id="adminNewShoesList" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;"></div>
+                    </div>
+
+                    <!-- VISITOR ANALYTICS -->
+                    <div class="admin-extra-panel">
+                        <h4 style="color:var(--dark-brown);"><i class="fa-solid fa-chart-line"></i> WATU WALIOITEMBELEA WEBSITE</h4>
+                        <p style="font-size:.85rem;color:#666;">Taarifa za wageni wanaokubali kushiriki takwimu za kutembelea tovuti. Mkoa unaweza kuwa haujapatikana kwa baadhi ya wageni.</p>
+                        <div class="visitor-stats">
+                            <div class="visitor-stat">Jumla ya ziara zilizorekodiwa<strong id="visitorTotal">0</strong></div>
+                            <div class="visitor-stat">Mikoa iliyotambuliwa<strong id="visitorRegionsCount">0</strong></div>
+                        </div>
+                        <div id="visitorRegionSummary" style="margin:10px 0;">Inapakia takwimu...</div>
+                        <div class="visitor-table-wrap"><table class="visitor-table"><thead><tr><th>Tarehe</th><th>Mkoa</th><th>Mji</th><th>Ukurasa</th></tr></thead><tbody id="visitorTableBody"></tbody></table></div>
+                    </div>
+
                     <!-- UPLOAD OFFICE LOGO SECTION -->
                     <div style="background: var(--beige); padding: 15px; border-radius: 6px; margin-bottom: 25px; border: 1px solid var(--gold);">
                         <h4 style="color: var(--dark-brown); margin-bottom: 10px;"><i class="fa-solid fa-image"></i> BAKULISHA LOGO YA OFISI (HEADER & FOOTER)</h4>
@@ -1365,11 +1471,20 @@
         </div>
     </div>
 
+    <!-- PRIVACY NOTICE: visitor analytics is opt-in -->
+    <div class="visitor-consent" id="visitorConsent">
+        <p><strong>Takwimu za ziara:</strong> Ukikubali, tutarekodi ziara yako na eneo la takriban (mkoa/mji) ili kusaidia kuboresha huduma. Hatuombi GPS wala kuhifadhi jina au namba yako kwa takwimu hizi.</p>
+        <div class="visitor-consent-actions">
+            <button type="button" style="background:var(--gold);color:#17120b;" onclick="window.acceptVisitorAnalytics()">Kubali</button>
+            <button type="button" style="background:#eee;color:#333;" onclick="window.rejectVisitorAnalytics()">Sikubali</button>
+        </div>
+    </div>
+
     <!-- FIREBASE & APP LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-analytics.js";
-        import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyD_QSYogidL5B-qr9nCKy_Tuh4EktYR0Mk",
@@ -1465,6 +1580,10 @@
         let galleryImages = [];
         let productComments = [];
         let isAdminLoggedIn = false;
+        let newShoes = [];
+        let newShoeUploadedImage = "";
+        let currentWebsiteTheme = "classic";
+        let visitorAnalyticsLoaded = false;
 
         let currentLang = localStorage.getItem('asd_lang') || 'sw';
 
@@ -1645,10 +1764,216 @@
 
                 renderGallery();
                 renderAdminGalleryList();
+                await fetchNewShoes();
 
             } catch (error) {
                 console.error("Error fetching data: ", error);
             }
+        }
+
+
+        // ===== ENHANCEMENT 1: live search; one matching word/partial word is enough =====
+        function setupShoeSearch() {
+            const input = document.getElementById('shoeSearchInput');
+            const results = document.getElementById('shoeSearchResults');
+            if (!input || input.dataset.ready) return;
+            input.dataset.ready = '1';
+            input.addEventListener('input', () => {
+                const terms = input.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+                results.innerHTML = '';
+                if (!terms.length) { results.style.display = 'none'; renderProducts(); return; }
+                const matches = products.filter(p => {
+                    const haystack = [p.title, p.category, p.desc, ...(p.colors || [])].join(' ').toLowerCase();
+                    return terms.some(term => haystack.includes(term));
+                });
+                renderProducts(matches);
+                if (!matches.length) {
+                    results.innerHTML = '<div class="shoe-search-result">Hakuna kiatu kilicholingana na neno uliloandika.</div>';
+                } else {
+                    matches.slice(0, 12).forEach(p => {
+                        const item = document.createElement('div');
+                        item.className = 'shoe-search-result';
+                        item.innerHTML = `<img src="${p.image}" alt=""><div><strong>${safeText(p.title)}</strong><small>${safeText(p.category)} · TZS ${Number(p.price || 0).toLocaleString()}</small></div>`;
+                        item.addEventListener('click', () => {
+                            results.style.display = 'none';
+                            input.value = p.title;
+                            window.openProductModal(p.firestoreId);
+                        });
+                        results.appendChild(item);
+                    });
+                }
+                results.style.display = 'block';
+            });
+            document.addEventListener('click', e => {
+                if (!e.target.closest('.shoe-search-wrap')) results.style.display = 'none';
+            });
+        }
+
+        // ===== ENHANCEMENT 2: privacy-respecting visitor statistics (opt-in) =====
+        function offerVisitorConsent() {
+            if (!localStorage.getItem('asd_visitor_consent')) {
+                const banner = document.getElementById('visitorConsent');
+                if (banner) banner.style.display = 'block';
+            } else if (localStorage.getItem('asd_visitor_consent') === 'yes' &&
+                       !sessionStorage.getItem('asd_visit_recorded')) {
+                recordVisitorVisit();
+            }
+        }
+        window.acceptVisitorAnalytics = function() {
+            localStorage.setItem('asd_visitor_consent', 'yes');
+            document.getElementById('visitorConsent').style.display = 'none';
+            recordVisitorVisit();
+        };
+        window.rejectVisitorAnalytics = function() {
+            localStorage.setItem('asd_visitor_consent', 'no');
+            document.getElementById('visitorConsent').style.display = 'none';
+        };
+        async function recordVisitorVisit() {
+            if (sessionStorage.getItem('asd_visit_recorded')) return;
+            let region = 'Haijajulikana', city = 'Haijajulikana';
+            try {
+                // Approximate IP-derived location only; no GPS permission is requested.
+                const response = await fetch('https://ipapi.co/json/');
+                if (response.ok) {
+                    const geo = await response.json();
+                    region = geo.region || region;
+                    city = geo.city || city;
+                }
+            } catch (e) { console.warn('Eneo la mgeni halikupatikana:', e); }
+            try {
+                await addDoc(collection(db, 'websiteVisits'), {
+                    region, city, page: location.pathname || '/',
+                    visitedAt: new Date().toISOString(),
+                    userAgent: navigator.userAgent.slice(0, 180)
+                });
+                sessionStorage.setItem('asd_visit_recorded', 'yes');
+            } catch (e) { console.warn('Ziara haikuhifadhiwa:', e); }
+        }
+        async function loadVisitorAnalytics() {
+            if (!isAdminLoggedIn) return;
+            const body = document.getElementById('visitorTableBody');
+            if (!body) return;
+            body.innerHTML = '<tr><td colspan="4">Inapakia...</td></tr>';
+            try {
+                const snap = await getDocs(collection(db, 'websiteVisits'));
+                const visits = [];
+                snap.forEach(d => visits.push({ id: d.id, ...d.data() }));
+                visits.sort((a,b) => String(b.visitedAt || '').localeCompare(String(a.visitedAt || '')));
+                const regions = {};
+                visits.forEach(v => { const r = v.region || 'Haijajulikana'; regions[r] = (regions[r] || 0) + 1; });
+                document.getElementById('visitorTotal').textContent = visits.length;
+                document.getElementById('visitorRegionsCount').textContent = Object.keys(regions).length;
+                document.getElementById('visitorRegionSummary').innerHTML = Object.entries(regions)
+                    .sort((a,b) => b[1]-a[1])
+                    .map(([r,n]) => `<span style="display:inline-block;background:white;padding:7px 10px;border-radius:5px;margin:3px;border:1px solid #ddd;">${safeText(r)} <strong>${n}</strong></span>`).join('') || 'Hakuna takwimu bado.';
+                body.innerHTML = visits.slice(0, 200).map(v => `<tr><td>${v.visitedAt ? new Date(v.visitedAt).toLocaleString() : '-'}</td><td>${safeText(v.region || '-')}</td><td>${safeText(v.city || '-')}</td><td>${safeText(v.page || '-')}</td></tr>`).join('') || '<tr><td colspan="4">Hakuna ziara zilizorekodiwa.</td></tr>';
+            } catch (e) {
+                console.error(e);
+                body.innerHTML = '<tr><td colspan="4">Imeshindikana kusoma takwimu. Hakiki Firestore Rules.</td></tr>';
+            }
+        }
+
+        // ===== ENHANCEMENT 3: global website themes stored in Firestore =====
+        const WEBSITE_THEMES = {
+            classic: {'--dark-brown':'#2C1810','--black':'#121212','--gold':'#D4AF37','--gold-hover':'#AA820A','--cream':'#FDFBF7','--beige':'#F5F0EB','--dark-beige':'#E6DDD5'},
+            ocean: {'--dark-brown':'#073B4C','--black':'#062A38','--gold':'#168AAD','--gold-hover':'#126782','--cream':'#F2FAFC','--beige':'#DDF2F5','--dark-beige':'#B9DDE4'},
+            emerald: {'--dark-brown':'#123D2B','--black':'#09291C','--gold':'#2E8B57','--gold-hover':'#216B42','--cream':'#F4FBF6','--beige':'#E0F0E5','--dark-beige':'#C6DFCE'},
+            rose: {'--dark-brown':'#5A2638','--black':'#2E1720','--gold':'#C65D7B','--gold-hover':'#A94361','--cream':'#FFF7F9','--beige':'#F8E5EB','--dark-beige':'#EBCBD6'},
+            purple: {'--dark-brown':'#34204F','--black':'#1E1530','--gold':'#7952B3','--gold-hover':'#5D3B91','--cream':'#FAF7FF','--beige':'#EEE6F8','--dark-beige':'#D8C9EA'}
+        };
+        function applyWebsiteTheme(themeName) {
+            const theme = WEBSITE_THEMES[themeName] || WEBSITE_THEMES.classic;
+            Object.entries(theme).forEach(([key,value]) => document.documentElement.style.setProperty(key,value));
+            currentWebsiteTheme = WEBSITE_THEMES[themeName] ? themeName : 'classic';
+            document.querySelectorAll('.theme-choice').forEach(b => b.classList.toggle('active', b.getAttribute('onclick')?.includes(`'${currentWebsiteTheme}'`)));
+        }
+        async function loadWebsiteTheme() {
+            try {
+                const snap = await getDoc(doc(db, 'siteSettings', 'appearance'));
+                if (snap.exists() && snap.data().theme) applyWebsiteTheme(snap.data().theme);
+            } catch(e) { console.warn('Theme default imetumika:', e); }
+        }
+        window.setWebsiteTheme = async function(themeName) {
+            if (!isAdminLoggedIn || !WEBSITE_THEMES[themeName]) return;
+            try {
+                await setDoc(doc(db, 'siteSettings', 'appearance'), {theme:themeName, updatedAt:new Date().toISOString()});
+                applyWebsiteTheme(themeName);
+                alert('Rangi za website zimebadilishwa kwa wageni wote.');
+            } catch(e) { console.error(e); alert('Imeshindikana kuhifadhi theme. Hakiki Firestore Rules.'); }
+        };
+
+        // ===== ENHANCEMENT 4: new shoe designs carousel and admin upload =====
+        async function fetchNewShoes() {
+            try {
+                const snap = await getDocs(collection(db, 'newShoes'));
+                newShoes = [];
+                snap.forEach(d => newShoes.push({firestoreId:d.id, ...d.data()}));
+                newShoes.sort((a,b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+                renderNewShoes();
+                renderAdminNewShoesList();
+            } catch(e) { console.warn('New shoes collection:', e); }
+        }
+        function renderNewShoes() {
+            const track = document.getElementById('newShoesTrack');
+            if (!track) return;
+            if (!newShoes.length) {
+                track.innerHTML = '<p style="padding:20px;color:#777;">Design mpya zitaonekana hapa pindi admin atakapozipakia.</p>';
+                return;
+            }
+            track.innerHTML = '';
+            newShoes.forEach(shoe => {
+                const card = document.createElement('article');
+                card.className = 'new-shoe-card';
+                card.innerHTML = `<img src="${shoe.image}" alt="${safeText(shoe.title)}"><div class="new-shoe-info"><span class="new-shoe-tag">NEW DESIGN</span><h3>${safeText(shoe.title)}</h3><p>${safeText(shoe.desc || 'Design mpya kutoka African Shoes Design.')}</p>${shoe.price ? `<div class="new-shoe-price">TZS ${Number(shoe.price).toLocaleString()}</div>` : ''}<button class="btn btn-gold" type="button">WASILIANA NASI</button></div>`;
+                card.querySelector('button').addEventListener('click', () => window.open('https://wa.me/255676716619?text='+encodeURIComponent('Habari, naomba maelezo kuhusu design mpya: '+shoe.title), '_blank'));
+                track.appendChild(card);
+            });
+        }
+        window.scrollNewShoes = function(direction) {
+            const track = document.getElementById('newShoesTrack');
+            if (track) track.scrollBy({left:direction * Math.max(260, track.clientWidth * .75), behavior:'smooth'});
+        };
+        window.handleNewShoeImage = function(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) { newShoeUploadedImage = ''; return; }
+            if (!file.type.startsWith('image/')) { alert('Chagua picha tu.'); event.target.value=''; return; }
+            if (file.size > 900000) { alert('Picha ni kubwa. Tumia picha isiyozidi 900KB ili kuepuka kuzidi Firestore document limit.'); event.target.value=''; return; }
+            const reader = new FileReader();
+            reader.onload = e => { newShoeUploadedImage = e.target.result; };
+            reader.readAsDataURL(file);
+        };
+        window.saveNewShoe = async function(event) {
+            event.preventDefault();
+            if (!isAdminLoggedIn) return;
+            const title = document.getElementById('newShoeTitle').value.trim();
+            const image = newShoeUploadedImage || document.getElementById('newShoeUrl').value.trim();
+            if (!title || !image) { alert('Weka jina na picha ya design mpya.'); return; }
+            try {
+                await addDoc(collection(db, 'newShoes'), {
+                    title, image, price:Number(document.getElementById('newShoePrice').value || 0),
+                    desc:document.getElementById('newShoeDesc').value.trim(), createdAt:new Date().toISOString()
+                });
+                document.getElementById('newShoeForm').reset();
+                newShoeUploadedImage = '';
+                await fetchNewShoes();
+                alert('New shoe design imeongezwa.');
+            } catch(e) { console.error(e); alert('Imeshindikana kupakia design. Hakiki Firestore Rules na ukubwa wa picha.'); }
+        };
+        function renderAdminNewShoesList() {
+            const list = document.getElementById('adminNewShoesList');
+            if (!list) return;
+            list.innerHTML = '';
+            newShoes.forEach(shoe => {
+                const item = document.createElement('div');
+                item.style.cssText = 'display:flex;align-items:center;gap:7px;background:white;padding:6px;border:1px solid #ddd;border-radius:6px;';
+                item.innerHTML = `<img src="${shoe.image}" style="width:45px;height:45px;object-fit:cover"><span style="font-size:.8rem">${safeText(shoe.title)}</span><button type="button" style="color:red;border:0;background:none;cursor:pointer" title="Futa design"><i class="fa-solid fa-trash"></i></button>`;
+                item.querySelector('button').addEventListener('click', async () => {
+                    if (!isAdminLoggedIn || !confirm('Ufute design hii mpya?')) return;
+                    try { await deleteDoc(doc(db,'newShoes',shoe.firestoreId)); await fetchNewShoes(); }
+                    catch(e) { alert('Imeshindikana kufuta design.'); }
+                });
+                list.appendChild(item);
+            });
         }
 
         function saveCartToStorage() {
@@ -1656,13 +1981,14 @@
             updateCartBadge();
         }
 
-        function renderProducts() {
+        function renderProducts(searchMatches = null) {
             const container = document.getElementById('productsGrid');
             container.innerHTML = '';
 
-            const filtered = activeFilter === 'all' 
-                ? products 
-                : products.filter(p => p.category.toLowerCase().includes(activeFilter.toLowerCase()) || activeFilter.toLowerCase().includes(p.category.toLowerCase()));
+            const sourceProducts = Array.isArray(searchMatches) ? searchMatches : products;
+            const filtered = activeFilter === 'all'
+                ? sourceProducts
+                : sourceProducts.filter(p => p.category.toLowerCase().includes(activeFilter.toLowerCase()) || activeFilter.toLowerCase().includes(p.category.toLowerCase()));
 
             if (filtered.length === 0) {
                 container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #777;">Hakuna bidhaa kwenye kundi hili kwa sasa.</p>`;
@@ -2260,6 +2586,9 @@
                 renderAdminProductsTable();
                 renderAdminGalleryList();
                 loadAdminComments();
+                loadVisitorAnalytics();
+                fetchNewShoes();
+                loadWebsiteTheme();
             } else {
                 alert("Email au Password siyo sahihi! Tafadhali jaribu tena.");
             }
@@ -2458,6 +2787,9 @@
             applyLanguage(currentLang);
             renderLogo();
             fetchData();
+            setupShoeSearch();
+            loadWebsiteTheme();
+            offerVisitorConsent();
             updateCartBadge();
         });
     </script>
