@@ -883,7 +883,7 @@
         .shoe-search-result strong{display:block;color:var(--dark-brown)}
         .shoe-search-result small{color:var(--gray-text)}
         .new-shoes-section{background:linear-gradient(135deg,var(--beige),var(--cream));overflow:hidden}
-        .new-shoes-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;max-width:1300px;margin:0 auto 25px;flex-wrap:wrap}
+        .new-shoes-heading{display:flex;align-items:center;justify-space-between;gap:15px;max-width:1300px;margin:0 auto 25px;flex-wrap:wrap}
         .new-shoes-controls{display:flex;gap:10px}
         .new-shoes-controls button{width:46px;height:46px;border:1px solid var(--gold);border-radius:50%;background:var(--white);color:var(--dark-brown);font-size:1.1rem;cursor:pointer}
         .new-shoes-controls button:hover{background:var(--gold)}
@@ -1806,12 +1806,9 @@
             });
         }
 
-        // ===== ENHANCEMENT 2: visit counter + approximate visitor region =====
-        // Hakuna popup. Mkoa/mji ni makadirio kutoka huduma ya IP geolocation;
-        // IP yenyewe haihifadhiwi kwenye Firestore. Eleza utaratibu huu kwenye Privacy Policy.
+        // ===== ENHANCEMENT 2: visit counter + visitor locations (CORRECTED TO visitorLocations) =====
         async function recordVisitorVisit() {
             try {
-                // Ziara moja kwa kila session ya tab; refresh haziongezi tena.
                 try {
                     if (sessionStorage.getItem('asd_visit_recorded') === 'yes') return;
                 } catch (e) { /* Endelea ikiwa sessionStorage imezuiwa */ }
@@ -1837,10 +1834,11 @@
                         total: increment(1),
                         updatedAt: visitedAt
                     }, { merge: true }),
-                    addDoc(collection(db, 'websiteVisits'), {
+                    addDoc(collection(db, 'visitorLocations'), {
                         region: locationInfo.region,
                         city: locationInfo.city,
                         country: locationInfo.country,
+                        location: `${locationInfo.region}, ${locationInfo.country}`,
                         page: location.pathname.slice(0, 200),
                         visitedAt
                     })
@@ -1863,7 +1861,7 @@
             try {
                 const [statsSnap, visitsSnap] = await Promise.all([
                     getDoc(doc(db, 'websiteStats', 'visits')),
-                    getDocs(collection(db, 'websiteVisits'))
+                    getDocs(collection(db, 'visitorLocations'))
                 ]);
                 const stats = statsSnap.exists() ? statsSnap.data() : {};
                 totalEl.textContent = Number(stats.total || 0).toLocaleString();
@@ -1878,7 +1876,7 @@
                     tableBody.innerHTML = '<tr><td colspan="4">Bado hakuna taarifa za maeneo ya wageni.</td></tr>';
                 } else {
                     tableBody.innerHTML = visits.map(v => {
-                        const region = safeText(v.region || 'Haijulikani');
+                        const region = safeText(v.region || v.location || 'Haijulikani');
                         const city = safeText(v.city || 'Haijulikani');
                         const country = safeText(v.country || 'Haijulikani');
                         const date = v.visitedAt ? new Date(v.visitedAt).toLocaleString() : 'Haijulikani';
@@ -2165,8 +2163,6 @@
             renderProducts();
         }
 
-        // Convert admin size input such as "24-44" into every available size.
-        // Comma-separated sizes (e.g. "39, 40, 41") remain supported.
         function parseAvailableSizes(value) {
             const input = String(value || "").trim();
             const rangeMatch = input.match(/^(\\d+)\\s*[-–]\\s*(\\d+)$/);
@@ -2359,7 +2355,6 @@
             }
         };
 
-        // Tumia namba iliyoandikwa na mteja ikiwa amejaza; vinginevyo tumia iliyochaguliwa.
         function getModalSelectedSize() {
             const customInput = document.getElementById('modalCustomSize');
             const customSize = customInput ? customInput.value.trim() : '';
@@ -2393,7 +2388,6 @@
 
             const sizeSelect = document.getElementById('modalSize');
             sizeSelect.innerHTML = '';
-            // Supports both saved arrays and legacy "start-end" values.
             const availableSizes = Array.isArray(product.sizes)
                 ? product.sizes
                 : parseAvailableSizes(product.sizes);
