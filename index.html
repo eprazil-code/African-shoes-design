@@ -1169,6 +1169,7 @@
         </div>
         <div class="copyright">
             &copy; 2026 AFRICAN SHOES DESIGN. All Rights Reserved. Designed for Luxury & Quality.
+            <p style="font-size:.75rem;margin-top:8px;">Tovuti hutumia makadirio ya mkoa/mji kutoka IP kwa takwimu za ziara. Anwani ya IP haihifadhiwi kwenye database. Eneo linaweza lisiwe sahihi kabisa.</p>
         </div>
     </footer>
 
@@ -1342,11 +1343,18 @@
                     <!-- VISITOR ANALYTICS -->
                     <div class="admin-extra-panel">
                         <h4 style="color:var(--dark-brown);"><i class="fa-solid fa-chart-line"></i> WATU WALIOITEMBELEA WEBSITE</h4>
-                        <p style="font-size:.85rem;color:#666;">Takwimu za jumla tu. Mfumo hauhifadhi majina, anwani za IP, maeneo, vifaa au historia ya mtu mmoja mmoja.</p>
+                        <p style="font-size:.85rem;color:#666;">Unaweza kuona mkoa/eneo la takriban, mji na nchi ya ziara. Mfumo hauhifadhi jina wala anwani ya IP ya mgeni.</p>
                         <div class="visitor-stats">
                             <div class="visitor-stat">Jumla ya ziara<strong id="visitorTotal">0</strong></div>
                         </div>
                         <p id="visitorStatsUpdated" style="font-size:.82rem;color:#666;margin-top:8px;">Inapakia takwimu...</p>
+                        <h5 style="margin:16px 0 8px;color:var(--dark-brown);">MAENEO YA WAGENI</h5>
+                        <div class="visitor-table-wrap">
+                            <table class="visitor-table">
+                                <thead><tr><th>Mkoa / Eneo</th><th>Mji</th><th>Nchi</th><th>Tarehe na muda</th></tr></thead>
+                                <tbody id="visitorRegionsTable"><tr><td colspan="4">Inapakia taarifa...</td></tr></tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- UPLOAD OFFICE LOGO SECTION -->
@@ -1798,24 +1806,49 @@
             });
         }
 
-        // ===== ENHANCEMENT 2: anonymous aggregate visit counter =====
-        // Hakuna popup, hakuna swali, na hakuna taarifa binafsi/eneo linalokusanywa.
-        // Huhifadhi jumla moja tu ya ziara kwenye hati moja ya Firestore.
+        // ===== ENHANCEMENT 2: visit counter + approximate visitor region =====
+        // Hakuna popup. Mkoa/mji ni makadirio kutoka huduma ya IP geolocation;
+        // IP yenyewe haihifadhiwi kwenye Firestore. Eleza utaratibu huu kwenye Privacy Policy.
         async function recordVisitorVisit() {
             try {
-                // Hesabu ziara moja kwa kila session ya tab; refresh haziongezi tena.
+                // Ziara moja kwa kila session ya tab; refresh haziongezi tena.
                 try {
                     if (sessionStorage.getItem('asd_visit_recorded') === 'yes') return;
-                } catch (e) { /* Ikiwa sessionStorage imezuiwa, endelea kuhesabu ziara */ }
+                } catch (e) { /* Endelea ikiwa sessionStorage imezuiwa */ }
 
-                await setDoc(doc(db, 'websiteStats', 'visits'), {
-                    total: increment(1),
-                    updatedAt: new Date().toISOString()
-                }, { merge: true });
+                let locationInfo = { region: 'Haijulikani', city: 'Haijulikani', country: 'Haijulikani' };
+                try {
+                    const response = await fetch('https://ipapi.co/json/', { method: 'GET', cache: 'no-store' });
+                    if (response.ok) {
+                        const geo = await response.json();
+                        locationInfo = {
+                            region: String(geo.region || geo.region_code || 'Haijulikani').slice(0, 100),
+                            city: String(geo.city || 'Haijulikani').slice(0, 100),
+                            country: String(geo.country_name || geo.country || 'Haijulikani').slice(0, 100)
+                        };
+                    }
+                } catch (geoError) {
+                    console.warn('Makadirio ya eneo hayakupatikana:', geoError);
+                }
+
+                const visitedAt = new Date().toISOString();
+                await Promise.all([
+                    setDoc(doc(db, 'websiteStats', 'visits'), {
+                        total: increment(1),
+                        updatedAt: visitedAt
+                    }, { merge: true }),
+                    addDoc(collection(db, 'websiteVisits'), {
+                        region: locationInfo.region,
+                        city: locationInfo.city,
+                        country: locationInfo.country,
+                        page: location.pathname.slice(0, 200),
+                        visitedAt
+                    })
+                ]);
 
                 try { sessionStorage.setItem('asd_visit_recorded', 'yes'); } catch (e) {}
             } catch (e) {
-                console.warn('Takwimu za jumla hazikuhifadhiwa. Hakiki Firestore Rules:', e);
+                console.warn('Takwimu za ziara hazikuhifadhiwa. Hakiki Firestore Rules:', e);
             }
         }
 
@@ -1823,18 +1856,39 @@
             if (!isAdminLoggedIn) return;
             const totalEl = document.getElementById('visitorTotal');
             const updatedEl = document.getElementById('visitorStatsUpdated');
-            if (!totalEl || !updatedEl) return;
+            const tableBody = document.getElementById('visitorRegionsTable');
+            if (!totalEl || !updatedEl || !tableBody) return;
             updatedEl.textContent = 'Inapakia takwimu...';
+            tableBody.innerHTML = '<tr><td colspan="4">Inapakia taarifa...</td></tr>';
             try {
-                const snap = await getDoc(doc(db, 'websiteStats', 'visits'));
-                const stats = snap.exists() ? snap.data() : {};
+                const [statsSnap, visitsSnap] = await Promise.all([
+                    getDoc(doc(db, 'websiteStats', 'visits')),
+                    getDocs(collection(db, 'websiteVisits'))
+                ]);
+                const stats = statsSnap.exists() ? statsSnap.data() : {};
                 totalEl.textContent = Number(stats.total || 0).toLocaleString();
                 updatedEl.textContent = stats.updatedAt
                     ? 'Mara ya mwisho kusasishwa: ' + new Date(stats.updatedAt).toLocaleString()
                     : 'Bado hakuna ziara zilizorekodiwa.';
+
+                const visits = visitsSnap.docs.map(d => d.data()).sort((a, b) =>
+                    new Date(b.visitedAt || 0).getTime() - new Date(a.visitedAt || 0).getTime()
+                ).slice(0, 100);
+                if (!visits.length) {
+                    tableBody.innerHTML = '<tr><td colspan="4">Bado hakuna taarifa za maeneo ya wageni.</td></tr>';
+                } else {
+                    tableBody.innerHTML = visits.map(v => {
+                        const region = safeText(v.region || 'Haijulikani');
+                        const city = safeText(v.city || 'Haijulikani');
+                        const country = safeText(v.country || 'Haijulikani');
+                        const date = v.visitedAt ? new Date(v.visitedAt).toLocaleString() : 'Haijulikani';
+                        return `<tr><td>${region}</td><td>${city}</td><td>${country}</td><td>${safeText(date)}</td></tr>`;
+                    }).join('');
+                }
             } catch (e) {
                 console.error(e);
                 updatedEl.textContent = 'Imeshindikana kusoma takwimu. Hakiki Firestore Rules.';
+                tableBody.innerHTML = '<tr><td colspan="4">Imeshindikana kupakia maeneo ya wageni.</td></tr>';
             }
         }
 
